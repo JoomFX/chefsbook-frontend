@@ -1,0 +1,9 @@
+<form id="search-box" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <a class="clear-search-link"
+    *ngIf="!this.clearSearchDisabled"
+    (click)="clearSearch()"
+  ><span class="far fa-times-circle"></span>Clear Search</a>
+
+  <input formControlName="search" class="search-input" name="search" type="search" placeholder="Search Recipes">
+  <button class="search-button" type="submit"><span class="fas fa-search"></span></button>
+</form>

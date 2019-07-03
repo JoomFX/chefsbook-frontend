@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Muli', sans-serif;
+  background-color: #f6f6f6;
+}
+
+a {
+  transition: color 0.2s;
+}
+
+.centered-box {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  width: 30rem;
+  margin: 0 auto;
+  margin-top: 60px;
+  padding: 3.5rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 767.98px) {
+  .centered-box {
+    width: 22rem;
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .centered-box {
+    width: 100%;
+    padding: 2.5rem;
+  }
+}
+
+.form-control {
+  padding: 0.9375rem 1.25rem;
+  height: calc(1.5em + .75rem + 8px);
+}
+
+.modal-header {
+  padding: 1rem 2rem;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+ul.pagination {
+  margin: 0;
+}
+
+.pagination .page-item .page-link {
+  margin: 0 5px;
+  padding: 0;
+  font-size: 13px;
+  text-align: center;
+  border:none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background: #c4c4c4;
+  color: #ffffff;
+  transition: all 0.2s;
+}
+
+@media (max-width: 767.98px) {
+  .pagination .page-item .page-link {
+    margin: 0 2px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 10px;
+  }
+}
+
+.pagination .page-item .page-link:focus {
+  box-shadow: none;
+}
+
+.pagination .page-item.active .page-link {
+  background: #47db00;
+}
+
+.pagination .page-item.active .page-link:hover {
+  background: #47db00;
+}
+
+.pagination .page-item .page-link:hover {
+  background: #212529;
+}

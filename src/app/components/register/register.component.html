@@ -1,0 +1,79 @@
+<section id="register">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="centered-box">
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="form-group">
+              <input type="text" class="form-control" id="first-name-input" placeholder="First Name" formControlName="firstName"
+                [class.is-valid]="this.registerForm.controls['firstName'].valid && this.registerForm.controls['firstName'].touched"
+                [class.is-invalid]="this.registerForm.controls['firstName'].invalid && this.registerForm.controls['firstName'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.registerForm.controls['firstName'].invalid && this.registerForm.controls['firstName'].touched"
+              >
+                <small *ngIf="this.registerForm.controls['firstName'].errors.required">First Name is required!</small>
+                <small *ngIf="this.registerForm.controls['firstName'].errors.minlength">First Name must be at least 3 characters long!</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="last-name-input" placeholder="Last Name" formControlName="lastName"
+                [class.is-valid]="this.registerForm.controls['lastName'].valid && this.registerForm.controls['lastName'].touched"
+                [class.is-invalid]="this.registerForm.controls['lastName'].invalid && this.registerForm.controls['lastName'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.registerForm.controls['lastName'].invalid && this.registerForm.controls['lastName'].touched"
+              >
+                <small *ngIf="this.registerForm.controls['lastName'].errors.required">Last Name is required!</small>
+                <small *ngIf="this.registerForm.controls['lastName'].errors.minlength">Last Name must be at least 3 characters long!</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" id="username-input" placeholder="Username" formControlName="username"
+                [class.is-valid]="this.registerForm.controls['username'].valid && this.registerForm.controls['username'].touched"
+                [class.is-invalid]="this.registerForm.controls['username'].invalid && this.registerForm.controls['username'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.registerForm.controls['username'].invalid && this.registerForm.controls['username'].touched"
+              >
+                <small *ngIf="this.registerForm.controls['username'].errors.required">Username is required!</small>
+                <small *ngIf="this.registerForm.controls['username'].errors.minlength">Username must be at least 3 characters long!</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email-input" placeholder="Email" formControlName="email"
+                [class.is-valid]="this.registerForm.controls['email'].valid && this.registerForm.controls['email'].touched"
+                [class.is-invalid]="this.registerForm.controls['email'].invalid && this.registerForm.controls['email'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.registerForm.controls['email'].invalid && this.registerForm.controls['email'].touched"
+              >
+                <small *ngIf="this.registerForm.controls['email'].errors.required">Email is required!</small>
+                <small *ngIf="this.registerForm.controls['email'].errors.email">Please enter a valid email address!</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password-input" placeholder="Password" formControlName="password"
+                [class.is-valid]="this.registerForm.controls['password'].valid && this.registerForm.controls['password'].touched"
+                [class.is-invalid]="this.registerForm.controls['password'].invalid && this.registerForm.controls['password'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.registerForm.controls['password'].invalid && this.registerForm.controls['password'].touched"
+              >
+                <small *ngIf="this.registerForm.controls['password'].errors.required">Password is required!</small>
+                <small *ngIf="this.registerForm.controls['password'].errors.minlength">Password must be at least 6 characters long!</small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="this.registerForm.invalid">Register</button>
+          </form>   
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

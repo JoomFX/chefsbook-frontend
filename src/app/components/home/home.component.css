@@ -1,0 +1,26 @@
+.home-text {
+  margin-top: 30px;
+}
+
+.home-buttons-container {
+  margin-top: 30px;
+}
+
+.home-buttons-container .btn {
+  min-width: 120px;
+}
+
+@media (max-width: 575.98px) {
+  .home-buttons-container .btn {
+    width: 100%;
+    margin: 10px 0 0 0;
+  }
+}
+
+.btn-login {
+  margin-right: 5px;
+}
+
+.btn-register {
+  margin-left: 5px;
+}

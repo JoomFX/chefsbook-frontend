@@ -1,0 +1,42 @@
+<section id="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="centered-box">
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="form-group">
+              <input type="email" class="form-control" id="email-input" 
+              placeholder="Email" formControlName="email"
+                [class.is-valid]="this.loginForm.controls['email'].valid && this.loginForm.controls['email'].touched"
+                [class.is-invalid]="this.loginForm.controls['email'].invalid && this.loginForm.controls['email'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.loginForm.controls['email'].invalid && this.loginForm.controls['email'].touched"
+              >
+                <small *ngIf="this.loginForm.controls['email'].errors.required">Email is required!</small>
+                <small *ngIf="this.loginForm.controls['email'].errors.email">Please enter a valid email address!</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password-input" 
+              placeholder="Password" formControlName="password" 
+                [class.is-valid]="this.loginForm.controls['password'].valid && this.loginForm.controls['password'].touched"
+                [class.is-invalid]="this.loginForm.controls['password'].invalid && this.loginForm.controls['password'].touched"
+              >
+
+              <div class="invalid-feedback"
+                *ngIf="this.loginForm.controls['password'].invalid && this.loginForm.controls['password'].touched"
+              >
+                <small *ngIf="this.loginForm.controls['password'].errors.required">Password is required!</small>
+                <small *ngIf="this.loginForm.controls['password'].errors.minlength">Password must be at least 6 characters long!</small>
+              </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="this.loginForm.invalid">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
