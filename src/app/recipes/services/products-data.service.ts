@@ -12,7 +12,7 @@ export class ProductsDataService {
     private readonly http: HttpClient,
   ) { }
 
-  public getProducts(page = 1, search: string): Observable<Products> {
+  public getProducts(page = 1, search = ''): Observable<Products> {
     // CHECK THE 'search' PARAMETHER IN THE URL
     return this.http.get<Products>(`http://localhost:3000/api/products?page=${page}&search=${search}`);
   }

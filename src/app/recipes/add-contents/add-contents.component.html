@@ -1,0 +1,38 @@
+<div class="row align-items-center add-buttons-row">
+  <div class="col-sm-6 text-center first-col">
+    <button class="btn btn-success add-product-button" (click)="open(addProducts)">
+        <span class="button-icon fas fa-plus"></span>Add Product
+    </button>
+  </div>
+  <div class="col-sm-6 text-center">
+    <button class="btn btn-primary add-recipe-button" (click)="open(addRecipes)">
+        <span class="button-icon fas fa-plus"></span>Add Recipe
+    </button>
+  </div>
+</div>
+
+<ng-template #addProducts let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Product</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul class="products">
+      <li *ngFor="let product of this.products">{{product.description}}</li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #addRecipes let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Recipes</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Add Recipes
+  </div>
+</ng-template>

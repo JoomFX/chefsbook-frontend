@@ -5,12 +5,14 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RouterModule } from '@angular/router';
 import { RecipesRoutingModule } from './recipes-routing.module';
+import { AddContentsComponent } from './add-contents/add-contents.component';
 
 @NgModule({
   declarations: [
     RecipesComponent,
     RecipeDetailsComponent,
     CreateRecipeComponent,
+    AddContentsComponent,
   ],
   imports: [
     SharedModule,

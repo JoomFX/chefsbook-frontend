@@ -1,3 +1,43 @@
-<p>
-  create-recipe works!
-</p>
+<section id="create-recipe">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="create-recipe-container">
+          <div class="add-buttons-container">
+            <app-add-contents></app-add-contents>
+          </div>
+          <div class="create-recipe-form">
+            <h4 class="create-recipe-header"><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>
+            <form [formGroup]="createRecipeForm" (ngSubmit)="createRecipe()">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Recipe Title" formControlName="title"
+                  [class.is-valid]="this.createRecipeForm.controls['title'].valid && this.createRecipeForm.controls['title'].touched"
+                  [class.is-invalid]="this.createRecipeForm.controls['title'].invalid && this.createRecipeForm.controls['title'].touched"
+                >
+                <div class="invalid-feedback"
+                  *ngIf="this.createRecipeForm.controls['title'].invalid && this.createRecipeForm.controls['title'].touched"
+                >
+                  <small *ngIf="this.createRecipeForm.controls['title'].errors.required">Title is required!</small>
+                  <small *ngIf="this.createRecipeForm.controls['title'].errors.minlength">Title must be at least 3 characters long!</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" rows="5" placeholder="Write recipe description here..." formControlName="description"
+                  [class.is-valid]="this.createRecipeForm.controls['description'].valid && this.createRecipeForm.controls['description'].touched"
+                  [class.is-invalid]="this.createRecipeForm.controls['description'].invalid && this.createRecipeForm.controls['description'].touched"
+                ></textarea>
+                <div class="invalid-feedback"
+                  *ngIf="this.createRecipeForm.controls['description'].invalid && this.createRecipeForm.controls['description'].touched"
+                >
+                  <small *ngIf="this.createRecipeForm.controls['description'].errors.required">Description is required!</small>
+                  <small *ngIf="this.createRecipeForm.controls['description'].errors.minlength">Description must be at least 3 characters long!</small>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" [disabled]="this.createRecipeForm.invalid">Create Recipe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

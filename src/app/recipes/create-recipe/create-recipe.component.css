@@ -1,0 +1,25 @@
+#create-recipe {
+  margin-top: 60px;
+}
+
+.create-recipe-container {
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.create-recipe-form {
+  padding: 3rem 3.5rem 3.5rem;
+}
+
+.create-recipe-header {
+  margin-bottom: 30px;
+}
+
+.create-recipe-icon {
+  margin-right: 10px;
+}
+
+.create-recipe-form button {
+  margin-top: 20px;
+}
