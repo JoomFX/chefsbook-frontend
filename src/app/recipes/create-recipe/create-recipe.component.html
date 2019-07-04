@@ -4,7 +4,10 @@
       <div class="col-sm-12">
         <div class="create-recipe-container">
           <div class="add-buttons-container">
-            <app-add-contents (addedProduct)="addedProduct($event)"></app-add-contents>
+            <app-add-contents
+              (addedProduct)="addedProduct($event)"
+              [addedProductsModal]="recipeContents"
+            ></app-add-contents>
           </div>
           <div class="create-recipe-form">
             <h4 class="create-recipe-header"><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>

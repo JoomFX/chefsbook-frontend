@@ -89,3 +89,7 @@ ul.pagination {
 .pagination .page-item .page-link:hover {
   background: #212529;
 }
+
+select.form-control {
+  padding: .375rem .75rem;
+}

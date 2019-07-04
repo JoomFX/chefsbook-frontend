@@ -1,27 +1,53 @@
 <div class="row align-items-center add-buttons-row">
   <div class="col-sm-6 text-center first-col">
     <button class="btn btn-success add-product-button" (click)="open(addProducts)">
-        <span class="button-icon fas fa-plus"></span>Add Product
+        <span class="button-icon fas fa-plus"></span>Add Products
     </button>
   </div>
   <div class="col-sm-6 text-center">
     <button class="btn btn-primary add-recipe-button" (click)="open(addRecipes)">
-        <span class="button-icon fas fa-plus"></span>Add Recipe
+        <span class="button-icon fas fa-plus"></span>Add Recipes
     </button>
   </div>
 </div>
 
-<ng-template #addProducts let-modal>
+<ng-template #addProducts let-modal class="modal-dialog-scrollable">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Product</h4>
+    <h4 class="modal-title" id="modal-basic-title">Add Products</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body add-contents">
+    <div class="filter-container">
+      <form id="filter-form" [formGroup]="filterForm">
+        <div class="form-row align-items-center">
+          <div class="col-auto">
+            <input formControlName="search" class="form-control" name="search" type="search" placeholder="Search Recipes">
+          </div>
+          <div class="col-auto">
+            <select class="form-control">
+              <option disabled selected value> -- select an option -- </option>
+              <option>FoodGroup 1</option>
+              <option>FoodGroup 2</option>
+              <option>FoodGroup 3</option>
+              <option>FoodGroup 4</option>
+              <option>FoodGroup 5</option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-secondary filter-button">Filter</button>
+          </div>
+        </div>
+      </form>
+    </div>
     <ul class="products">
       <li *ngFor="let product of this.products">{{product.description}}
-        <button (click)="addProductToRecipe(product)">Add</button>
+        <button class="btn btn-success btn-sm"
+          (click)="addProductToRecipe(product)"
+          *ngIf="!this.addedProductsModal.includes(product)"
+        >Add</button>
+        <button class="btn btn-success btn-sm" disabled *ngIf="this.addedProductsModal.includes(product)">Added</button>
       </li>
     </ul>
   </div>
@@ -34,7 +60,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body add-contents">
     Add Recipes
   </div>
 </ng-template>
