@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
 import { RecipesDataService } from '../services/recipes-data.service';
+import { Product } from 'src/app/common/interfaces/product';
 
 @Component({
   selector: 'app-create-recipe',
@@ -11,6 +12,9 @@ import { RecipesDataService } from '../services/recipes-data.service';
 })
 export class CreateRecipeComponent implements OnInit {
   public createRecipeForm: FormGroup;
+  public measuresForm: FormGroup;
+
+  public recipeContents: Product[] = [];
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -24,6 +28,20 @@ export class CreateRecipeComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
     });
+
+    this.measuresForm = this.formBuilder.group({
+      measure: [''],
+    });
+  }
+
+  public addedProduct(product: Product): void {
+    console.log(product);
+    this.recipeContents.push(product);
+  }
+
+  public removeProduct(productCode: number): void {
+    const productIndex = this.recipeContents.findIndex((product) => product.code === productCode);
+    this.recipeContents.splice(productIndex, 1);
   }
 
   public createRecipe(): void {

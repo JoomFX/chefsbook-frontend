@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="create-recipe-container">
           <div class="add-buttons-container">
-            <app-add-contents></app-add-contents>
+            <app-add-contents (addedProduct)="addedProduct($event)"></app-add-contents>
           </div>
           <div class="create-recipe-form">
             <h4 class="create-recipe-header"><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>
@@ -35,6 +35,25 @@
               </div>
               <button type="submit" class="btn btn-primary" [disabled]="this.createRecipeForm.invalid">Create Recipe</button>
             </form>
+            <div class="recipe-contents">
+              <h5>Recipe Contents</h5>
+              <ul>
+                <li *ngFor="let content of recipeContents">
+                  <span>{{content.description}}</span>
+                  <span>
+                    <input type="number" class="form-control" placeholder="Quantity" formControlName="quantity">
+                  </span>
+                  <span>
+                    <form [formGroup]="measuresForm">
+                      <select id="measures" formControlName="measures">
+                        <option *ngFor="let measure of content.measures" [ngValue]="measure.measure">{{measure.measure}}</option>
+                      </select>
+                    </form>
+                  </span>
+                  <span><button (click)="removeProduct(content.code)">Remove</button></span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

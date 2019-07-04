@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductsDataService } from '../services/products-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Products } from '../../../app/common/interfaces/products';
@@ -11,6 +11,11 @@ import { Product } from '../../../app/common/interfaces/product';
 })
 export class AddContentsComponent implements OnInit {
   public products: Product[] = [];
+
+  @Output() public addedProduct = new EventEmitter<Product>();
+
+  // Maybe delete?
+  public addedProductsModal: Product[] = [];
 
   constructor(
     private readonly productDataService: ProductsDataService,
@@ -25,6 +30,14 @@ export class AddContentsComponent implements OnInit {
 
   public open(modalWindow): void {
     this.modalService.open(modalWindow);
+  }
+
+  public addProductToRecipe(product) {
+    // console.log(product);
+    this.addedProduct.emit(product);
+
+    // Maybe delete?
+    this.addedProductsModal.push(product);
   }
 
 }

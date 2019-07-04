@@ -20,7 +20,9 @@
   </div>
   <div class="modal-body">
     <ul class="products">
-      <li *ngFor="let product of this.products">{{product.description}}</li>
+      <li *ngFor="let product of this.products">{{product.description}}
+        <button (click)="addProductToRecipe(product)">Add</button>
+      </li>
     </ul>
   </div>
 </ng-template>
