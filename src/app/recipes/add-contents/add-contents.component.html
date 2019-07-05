@@ -20,23 +20,24 @@
   </div>
   <div class="modal-body add-contents">
     <div class="filter-container">
-      <form id="filter-form" [formGroup]="filterForm">
+      <form id="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmitFilter()">
         <div class="form-row align-items-center">
           <div class="col-auto">
-            <input formControlName="search" class="form-control" name="search" type="search" placeholder="Search Recipes">
+            <input formControlName="search" class="form-control" name="search" type="search" placeholder="Search Products">
           </div>
           <div class="col-auto">
-            <select class="form-control">
-              <option disabled selected value> -- select an option -- </option>
-              <option>FoodGroup 1</option>
-              <option>FoodGroup 2</option>
-              <option>FoodGroup 3</option>
-              <option>FoodGroup 4</option>
-              <option>FoodGroup 5</option>
+            <select formControlName="foodGroup" class="form-control" (change)="changeFoodGroupSelect($event)">
+              <option selected value> -- Select FoodGroup -- </option>
+              <option *ngFor="let foodGroup of foodGroups" [value]="foodGroup">
+                {{ (foodGroup.length>30)? (foodGroup | slice:0:30)+'...':(foodGroup) }}
+              </option>
             </select>
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-secondary filter-button">Filter</button>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-secondary clear-button" (click)="onClearFilter()">Clear</button>
           </div>
         </div>
       </form>
