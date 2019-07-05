@@ -50,15 +50,15 @@ ul.pagination {
 }
 
 .pagination .page-item .page-link {
-  margin: 0 5px;
+  margin: 0 3px;
   padding: 0;
-  font-size: 13px;
+  font-size: 11px;
   text-align: center;
   border:none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
   background: #c4c4c4;
   color: #ffffff;
   transition: all 0.2s;

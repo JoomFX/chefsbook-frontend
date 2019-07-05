@@ -1,0 +1,20 @@
+<div class="row custom-row d-flex align-items-center">
+  <div class="col-md">
+    <span class="pagination-viewing">
+      Viewing {{viewing}} items - {{(page * pageSize) - (pageSize - 1)}} through {{through}}
+    </span>
+  </div>
+  <div class="col-md text-right">
+    <div class="pagination-container">
+      <ngb-pagination
+        [collectionSize]="collectionSize"
+        [(page)]="page"
+        [(pageSize)]="pageSize"
+        [maxSize]="3"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

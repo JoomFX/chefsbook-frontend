@@ -41,6 +41,15 @@ export class AddContentsComponent implements OnInit {
     'Restaurant Foods',
   ];
 
+  public page = 1;
+  public pageSize = 10;
+  public collectionSize: number;
+  public viewing = 5;
+  public through = 5;
+
+  public search: string;
+  public foodGroup: string;
+
   @Input() public addedProductsModal: Product[];
   @Output() public addedProduct = new EventEmitter<Product>();
 
@@ -57,7 +66,10 @@ export class AddContentsComponent implements OnInit {
     });
 
     this.productDataService.getProducts().subscribe(
-      (products: Products) => this.products = products.products
+      (products: Products) => {
+        this.products = products.products;
+        this.collectionSize = products.count;
+      }
     );
   }
 
@@ -70,11 +82,14 @@ export class AddContentsComponent implements OnInit {
   }
 
   public onSubmitFilter(): void {
-    const search = this.filterForm.value.search;
-    const foodGroup = this.filterForm.value.foodGroup;
+    this.search = this.filterForm.value.search;
+    this.foodGroup = this.filterForm.value.foodGroup;
 
-    this.productDataService.getProducts(1, search, foodGroup).subscribe(
-      (products: Products) => this.products = products.products
+    this.productDataService.getProducts(1, this.search, this.foodGroup).subscribe(
+      (products: Products) => {
+        this.products = products.products;
+        this.collectionSize = products.count;
+      }
     );
   }
 
@@ -83,7 +98,22 @@ export class AddContentsComponent implements OnInit {
     this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
 
     this.productDataService.getProducts().subscribe(
-      (products: Products) => this.products = products.products
+      (products: Products) => {
+        this.products = products.products;
+        this.collectionSize = products.count;
+      }
+    );
+  }
+
+  public onPaginationChange(page: number): void {
+    this.productDataService.getProducts(page, this.search, this.foodGroup).subscribe(
+      (products: Products) => {
+        this.products = products.products;
+        this.page = page;
+
+        this.through = Math.min((page * this.pageSize), this.collectionSize);
+        this.viewing = Math.min(this.pageSize, this.through - ((page * this.pageSize) - (this.pageSize - 1))) + 1;
+      }
     );
   }
 

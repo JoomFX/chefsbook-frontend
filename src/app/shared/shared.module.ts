@@ -4,10 +4,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
     SearchBoxComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     FormsModule,
     ReactiveFormsModule,
     SearchBoxComponent,
+    PaginationComponent,
   ],
 })
 export class SharedModule { }

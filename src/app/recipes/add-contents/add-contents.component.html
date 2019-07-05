@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<ng-template #addProducts let-modal class="modal-dialog-scrollable">
+<ng-template #addProducts let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Add Products</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -51,6 +51,16 @@
         <button class="btn btn-success btn-sm" disabled *ngIf="this.addedProductsModal.includes(product)">Added</button>
       </li>
     </ul>
+    <div class="pagination-container">
+      <app-pagination
+        [viewing]="viewing"
+        [through]="through"
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [collectionSize]="collectionSize"
+        (newPage)="onPaginationChange($event)"
+      ></app-pagination>
+    </div>
   </div>
 </ng-template>
 
