@@ -81,11 +81,15 @@ export class AddContentsComponent implements OnInit {
       (products: Products) => {
         this.products = products.products;
         this.collectionSize = products.count;
+
+        this.through = Math.min((this.page * this.pageSize), this.collectionSize);
+        this.viewing = Math.min(this.pageSize, this.through - ((this.page * this.pageSize) - (this.pageSize - 1))) + 1;
       }
     );
   }
 
   public onSubmitFilter(): void {
+    this.page = 1;
     this.search = this.filterForm.value.search;
     this.foodGroup = this.filterForm.value.foodGroup;
 

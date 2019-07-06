@@ -1,7 +1,10 @@
 <div class="row custom-row d-flex align-items-center">
   <div class="col-md">
     <span class="pagination-viewing">
-      Viewing {{viewing}} items - {{(page * pageSize) - (pageSize - 1)}} through {{through}}
+      Viewing {{viewing}} items - 
+      {{ (viewing > 0)? (page * pageSize) - (pageSize - 1):0 }} 
+      through {{through}} 
+      (of {{collectionSize}} total)
     </span>
   </div>
   <div class="col-md text-right">
