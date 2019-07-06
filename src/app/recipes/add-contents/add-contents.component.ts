@@ -100,7 +100,7 @@ export class AddContentsComponent implements OnInit {
     this.page = 1;
     this.search = '';
     this.foodGroup = '';
-    this.filterForm.controls.search.reset();
+    this.filterForm.controls.search.setValue('');
     this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
 
     this.getProducts();
