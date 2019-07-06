@@ -65,56 +65,55 @@ export class AddContentsComponent implements OnInit {
       foodGroup: [''],
     });
 
-    this.productDataService.getProducts().subscribe(
-      (products: Products) => {
-        this.products = products.products;
-        this.collectionSize = products.count;
-      }
-    );
+    this.getProducts();
   }
 
   public open(modalWindow): void {
     this.modalService.open(modalWindow, { size: 'lg' });
   }
 
-  public changeFoodGroupSelect(event): void{
+  public onChangeFoodGroupSelect(event): void{
     this.filterForm.controls.foodGroup.setValue(event.target.value, { onlySelf: true });
+  }
+
+  public getProducts(): void {
+    this.productDataService.getProducts(this.page, this.search, this.foodGroup).subscribe(
+      (products: Products) => {
+        this.products = products.products;
+        this.collectionSize = products.count;
+      }
+    );
   }
 
   public onSubmitFilter(): void {
     this.search = this.filterForm.value.search;
     this.foodGroup = this.filterForm.value.foodGroup;
 
-    this.productDataService.getProducts(1, this.search, this.foodGroup).subscribe(
-      (products: Products) => {
-        this.products = products.products;
-        this.collectionSize = products.count;
-      }
-    );
+    this.getProducts();
   }
 
   public onClearFilter(): void {
+    this.page = 1;
+    this.search = '';
+    this.foodGroup = '';
     this.filterForm.controls.search.reset();
     this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
 
-    this.productDataService.getProducts().subscribe(
-      (products: Products) => {
-        this.products = products.products;
-        this.collectionSize = products.count;
-      }
-    );
+    this.getProducts();
   }
 
   public onPaginationChange(page: number): void {
-    this.productDataService.getProducts(page, this.search, this.foodGroup).subscribe(
-      (products: Products) => {
-        this.products = products.products;
-        this.page = page;
+    this.page = page;
+    this.getProducts();
+    // this.productDataService.getProducts(page, this.search, this.foodGroup).subscribe(
+    //   (products: Products) => {
+    //     this.products = products.products;
+    //     this.page = page;
 
-        this.through = Math.min((page * this.pageSize), this.collectionSize);
-        this.viewing = Math.min(this.pageSize, this.through - ((page * this.pageSize) - (this.pageSize - 1))) + 1;
-      }
-    );
+    //     this.through = Math.min((page * this.pageSize), this.collectionSize);
+    //     this.viewing = Math.min(this.pageSize, this.through - ((page * this.pageSize) - (this.pageSize - 1))) + 1;
+    //   }
+    // );
   }
 
   public addProductToRecipe(product) {
