@@ -51,7 +51,7 @@ export class AddContentsComponent implements OnInit {
   public foodGroup: string;
 
   @Input() public addedProductsModal: Product[];
-  @Output() public addedProduct = new EventEmitter<Product>();
+  @Output() public addProduct = new EventEmitter<Product>();
 
   constructor(
     private readonly productDataService: ProductsDataService,
@@ -112,7 +112,7 @@ export class AddContentsComponent implements OnInit {
   }
 
   public addProductToRecipe(product) {
-    this.addedProduct.emit(product);
+    this.addProduct.emit(product);
   }
 
 }

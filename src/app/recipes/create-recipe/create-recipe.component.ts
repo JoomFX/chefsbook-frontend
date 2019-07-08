@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
 import { RecipesDataService } from '../services/recipes-data.service';
-import { Product } from 'src/app/common/interfaces/product';
+import { Product } from '../../../app/common/interfaces/product';
+import { CreateRecipe } from './../../common/interfaces/create-recipe';
+import { Recipe } from './../../common/interfaces/recipe';
+import { Ingredient } from './../../common/interfaces/ingredient';
 
 @Component({
   selector: 'app-create-recipe',
@@ -12,10 +15,10 @@ import { Product } from 'src/app/common/interfaces/product';
 })
 export class CreateRecipeComponent implements OnInit {
   public createRecipeForm: FormGroup;
-  public measuresForm: FormGroup;
+  public productsList: FormArray;
 
   public recipeProducts: Product[] = [];
-  public recipeRecipes: any = [];
+  public recipeRecipes: Recipe[] = [];
   public recipeCategories = [
     'Category 1',
     'Category 2',
@@ -36,21 +39,47 @@ export class CreateRecipeComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
       category: ['', Validators.required],
+      products: this.formBuilder.array([]),
     });
 
-    this.measuresForm = this.formBuilder.group({
-      measure: [''],
-    });
+    this.productsList = this.createRecipeForm.get('products') as FormArray;
   }
 
-  public addedProduct(product: Product): void {
-    console.log(product);
+  public addProduct(product: Product): void {
     this.recipeProducts.push(product);
+    this.addProductFormGroup();
   }
 
   public removeProduct(productCode: number): void {
     const productIndex = this.recipeProducts.findIndex((product) => product.code === productCode);
     this.recipeProducts.splice(productIndex, 1);
+    this.removeProductFormGroup(productIndex);
+  }
+
+  public createProductFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      amount: ['', [Validators.required]],
+      measure: ['', [Validators.required]],
+    });
+  }
+
+  public addProductFormGroup(): void {
+    this.productsList.push(this.createProductFormGroup());
+  }
+
+  public removeProductFormGroup(index: number): void {
+    this.productsList.removeAt(index);
+  }
+
+  public getProductFormGroup(index: number): FormGroup {
+    this.productsList = this.createRecipeForm.get('products') as FormArray;
+    const formGroup = this.productsList.controls[index] as FormGroup;
+
+    return formGroup;
+  }
+
+  public onChangeProductMeasureSelect(index: number, event): void{
+    this.getProductFormGroup(index).controls.measure.setValue(event.target.value, { onlySelf: true });
   }
 
   public onChangeCategorySelect(event): void{
@@ -58,17 +87,36 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   public createRecipe(): void {
-    const recipe = 'New Recipe';
+    const ingredients: Ingredient[] = [];
+    this.recipeProducts.map((product: Product, index) => {
+      const ingredient: Ingredient = {
+        product,
+        amount: this.getProductFormGroup(index).value.amount,
+        measure: this.getProductFormGroup(index).value.measure,
+      };
 
-    this.recipesDataService.createRecipe(recipe).subscribe(
-      (recipe) => {
-        this.router.navigate(['/recipes']);
-        this.notificator.success('Recipe successfully created!');
-      },
-      (error) => {
-        this.notificator.error('Recipe creation unsuccessful!');
-      }
-    );
+      ingredients.push(ingredient);
+    });
+
+    const recipe: CreateRecipe = {
+      title: this.createRecipeForm.value.title,
+      description: this.createRecipeForm.value.description,
+      category: this.createRecipeForm.value.category,
+      products: ingredients,
+      recipes: this.recipeRecipes,
+    };
+
+    console.log(recipe);
+
+    // this.recipesDataService.createRecipe(recipe).subscribe(
+    //   (recipe) => {
+    //     this.router.navigate(['/recipes']);
+    //     this.notificator.success('Recipe successfully created!');
+    //   },
+    //   (error) => {
+    //     this.notificator.error('Recipe creation unsuccessful!');
+    //   }
+    // );
   }
 
 }

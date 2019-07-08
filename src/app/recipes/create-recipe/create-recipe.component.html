@@ -5,7 +5,7 @@
         <div class="create-recipe-container">
           <div class="add-buttons-container">
             <app-add-contents
-              (addedProduct)="addedProduct($event)"
+              (addProduct)="addProduct($event)"
               [addedProductsModal]="recipeProducts"
             ></app-add-contents>
           </div>
@@ -54,7 +54,7 @@
               <div class="recipe-contents">
                 <div class="products-container">
                   <h5>Products</h5>
-                  <div class="products-container-inner">
+                  <div class="products-container-inner" formArrayName="products">
                     <div class="alert alert-warning" role="alert" *ngIf="recipeProducts.length === 0">
                       There are no products added to this recipe yet!
                     </div>
@@ -63,27 +63,29 @@
                         <ng-template ngbPanelHeader>
                           <div class="d-flex align-items-center justify-content-between">
                             <button class="btn btn-link" ngbPanelToggle>{{product.description}}</button>
-                            <div>
-                              <!-- <form id="filter-form-{{i}}" class="item-form"> -->
-                                <div class="form-row align-items-center dynamic-item">
-                                  <div class="col-auto">
-                                    <input class="form-control" name="search" type="text" placeholder="0">
-                                  </div>
-                                  <div class="col-auto">
-                                    <select class="form-control">
-                                      <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
-                                    </select>
-                                  </div>
-                                  <div class="col-auto">
-                                      <span class="remove-icon far fa-times-circle" (click)="removeProduct(product.code)"></span>
-                                  </div>
+                            <div [formGroupName]="i">
+                              <div class="form-row align-items-center dynamic-item">
+                                <div class="col-auto">
+                                  <input formControlName="amount" class="form-control" name="search" type="number" placeholder="0">
                                 </div>
-                              <!-- </form> -->
+                                <div class="col-auto">
+                                  <select formControlName="measure" class="form-control"
+                                    (change)="onChangeProductMeasureSelect(i, $event)"
+                                  >
+                                    <option selected value> - Select Unit - </option>
+                                    <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
+                                  </select>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="remove-icon far fa-times-circle" (click)="removeProduct(product.code)"></span>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+                          Amount: {{this.getProductFormGroup(i).controls['amount'].value}} <br />
+                          Measure: {{this.getProductFormGroup(i).controls['measure'].value}}
                         </ng-template>
                       </ngb-panel>
                     </ngb-accordion>
