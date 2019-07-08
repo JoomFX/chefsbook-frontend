@@ -6,12 +6,12 @@
           <div class="add-buttons-container">
             <app-add-contents
               (addedProduct)="addedProduct($event)"
-              [addedProductsModal]="recipeContents"
+              [addedProductsModal]="recipeProducts"
             ></app-add-contents>
           </div>
           <div class="create-recipe-form">
             <h4 class="create-recipe-header"><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>
-            <form [formGroup]="createRecipeForm" (ngSubmit)="createRecipe()">
+            <form [formGroup]="createRecipeForm">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Recipe Title" formControlName="title"
                   [class.is-valid]="this.createRecipeForm.controls['title'].valid && this.createRecipeForm.controls['title'].touched"
@@ -36,27 +36,75 @@
                   <small *ngIf="this.createRecipeForm.controls['description'].errors.minlength">Description must be at least 3 characters long!</small>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary" [disabled]="this.createRecipeForm.invalid">Create Recipe</button>
+              <div class="form-group">
+                <select formControlName="category" class="form-control"
+                  (change)="onChangeCategorySelect($event)"
+                  [class.is-valid]="this.createRecipeForm.controls['category'].valid && this.createRecipeForm.controls['category'].touched"
+                  [class.is-invalid]="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"
+                >
+                  <option selected value> -- Select Category -- </option>
+                  <option *ngFor="let category of recipeCategories" [value]="category">{{category}}</option>
+                </select>
+                <div class="invalid-feedback"
+                  *ngIf="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"
+                >
+                  <small *ngIf="this.createRecipeForm.controls['category'].errors.required">Category is required!</small>
+                </div>
+              </div>
+              <div class="recipe-contents">
+                <div class="products-container">
+                  <h5>Products</h5>
+                  <div class="products-container-inner">
+                    <div class="alert alert-warning" role="alert" *ngIf="recipeProducts.length === 0">
+                      There are no products added to this recipe yet!
+                    </div>
+                    <ngb-accordion #acc="ngbAccordion" *ngIf="recipeProducts.length > 0">
+                      <ngb-panel *ngFor="let product of recipeProducts; let i = index">
+                        <ng-template ngbPanelHeader>
+                          <div class="d-flex align-items-center justify-content-between">
+                            <button class="btn btn-link" ngbPanelToggle>{{product.description}}</button>
+                            <div>
+                              <!-- <form id="filter-form-{{i}}" class="item-form"> -->
+                                <div class="form-row align-items-center dynamic-item">
+                                  <div class="col-auto">
+                                    <input class="form-control" name="search" type="text" placeholder="0">
+                                  </div>
+                                  <div class="col-auto">
+                                    <select class="form-control">
+                                      <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-auto">
+                                      <span class="remove-icon far fa-times-circle" (click)="removeProduct(product.code)"></span>
+                                  </div>
+                                </div>
+                              <!-- </form> -->
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+                        </ng-template>
+                      </ngb-panel>
+                    </ngb-accordion>
+                  </div>
+                </div>
+                <div class="recipes-container">
+                  <h5>Recipes</h5>
+                  <div class="recipes-container-inner">
+                    <div class="alert alert-warning" role="alert" *ngIf="recipeRecipes.length === 0">
+                      There are no recipes added to this recipe yet!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="create-button-container">
+                <button type="submit" class="btn btn-primary"
+                  [disabled]="this.createRecipeForm.invalid"
+                  (click)="createRecipe()"
+                >Create Recipe</button>
+              </div>
             </form>
-            <div class="recipe-contents">
-              <h5>Recipe Contents</h5>
-              <ul>
-                <li *ngFor="let content of recipeContents">
-                  <span>{{content.description}}</span>
-                  <span>
-                    <input type="number" class="form-control" placeholder="Quantity" formControlName="quantity">
-                  </span>
-                  <span>
-                    <form [formGroup]="measuresForm">
-                      <select id="measures" formControlName="measures">
-                        <option *ngFor="let measure of content.measures" [ngValue]="measure.measure">{{measure.measure}}</option>
-                      </select>
-                    </form>
-                  </span>
-                  <span><button (click)="removeProduct(content.code)">Remove</button></span>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>

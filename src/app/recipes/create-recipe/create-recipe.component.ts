@@ -14,7 +14,15 @@ export class CreateRecipeComponent implements OnInit {
   public createRecipeForm: FormGroup;
   public measuresForm: FormGroup;
 
-  public recipeContents: Product[] = [];
+  public recipeProducts: Product[] = [];
+  public recipeRecipes: any = [];
+  public recipeCategories = [
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
+    'Category 5',
+  ];
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -27,6 +35,7 @@ export class CreateRecipeComponent implements OnInit {
     this.createRecipeForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
+      category: ['', Validators.required],
     });
 
     this.measuresForm = this.formBuilder.group({
@@ -36,12 +45,16 @@ export class CreateRecipeComponent implements OnInit {
 
   public addedProduct(product: Product): void {
     console.log(product);
-    this.recipeContents.push(product);
+    this.recipeProducts.push(product);
   }
 
   public removeProduct(productCode: number): void {
-    const productIndex = this.recipeContents.findIndex((product) => product.code === productCode);
-    this.recipeContents.splice(productIndex, 1);
+    const productIndex = this.recipeProducts.findIndex((product) => product.code === productCode);
+    this.recipeProducts.splice(productIndex, 1);
+  }
+
+  public onChangeCategorySelect(event): void{
+    this.createRecipeForm.controls.category.setValue(event.target.value, { onlySelf: true });
   }
 
   public createRecipe(): void {

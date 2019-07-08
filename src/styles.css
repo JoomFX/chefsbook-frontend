@@ -93,3 +93,7 @@ ul.pagination {
 select.form-control {
   padding: .375rem .75rem;
 }
+
+.accordion > .card .card-header {
+  padding: 5px;
+}

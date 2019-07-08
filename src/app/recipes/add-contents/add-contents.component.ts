@@ -109,15 +109,6 @@ export class AddContentsComponent implements OnInit {
   public onPaginationChange(page: number): void {
     this.page = page;
     this.getProducts();
-    // this.productDataService.getProducts(page, this.search, this.foodGroup).subscribe(
-    //   (products: Products) => {
-    //     this.products = products.products;
-    //     this.page = page;
-
-    //     this.through = Math.min((page * this.pageSize), this.collectionSize);
-    //     this.viewing = Math.min(this.pageSize, this.through - ((page * this.pageSize) - (this.pageSize - 1))) + 1;
-    //   }
-    // );
   }
 
   public addProductToRecipe(product) {

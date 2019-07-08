@@ -20,6 +20,39 @@
   margin-right: 10px;
 }
 
-.create-recipe-form button {
+.create-button-container {
+  margin-top: 25px;
+}
+
+.recipe-contents {
+  margin-top: 30px;
+}
+
+.recipes-container {
+  margin-top: 25px;
+}
+
+.products-container-inner, .recipes-container-inner {
   margin-top: 20px;
+}
+
+.dynamic-item input.form-control, .dynamic-item select.form-control {
+  padding: 10px;
+}
+
+.dynamic-item input.form-control {
+  width: 70px;
+}
+
+.dynamic-item select.form-control {
+  width: 150px;
+}
+
+.remove-icon {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.remove-icon:hover {
+  color: #47db00;
 }
