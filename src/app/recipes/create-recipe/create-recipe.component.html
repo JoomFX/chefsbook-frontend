@@ -43,7 +43,7 @@
                   [class.is-invalid]="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"
                 >
                   <option selected value> -- Select Category -- </option>
-                  <option *ngFor="let category of recipeCategories" [value]="category">{{category}}</option>
+                  <option *ngFor="let category of recipeCategories" [value]="category.name">{{category.name}}</option>
                 </select>
                 <div class="invalid-feedback"
                   *ngIf="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"

@@ -28,8 +28,8 @@
           <div class="col-auto">
             <select formControlName="foodGroup" class="form-control" (change)="onChangeFoodGroupSelect($event)">
               <option selected value> -- Select FoodGroup -- </option>
-              <option *ngFor="let foodGroup of foodGroups" [value]="foodGroup">
-                {{ (foodGroup.length>30)? (foodGroup | slice:0:30)+'...':(foodGroup) }}
+              <option *ngFor="let foodGroup of foodGroups" [value]="foodGroup.code">
+                {{ (foodGroup.description.length>30)? (foodGroup.description | slice:0:30)+'...':(foodGroup.description) }}
               </option>
             </select>
           </div>

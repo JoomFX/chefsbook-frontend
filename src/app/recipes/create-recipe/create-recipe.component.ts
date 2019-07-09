@@ -7,6 +7,7 @@ import { Product } from '../../../app/common/interfaces/product';
 import { CreateRecipe } from './../../common/interfaces/create-recipe';
 import { Recipe } from './../../common/interfaces/recipe';
 import { Ingredient } from './../../common/interfaces/ingredient';
+import { Category } from './../../common/interfaces/category';
 
 @Component({
   selector: 'app-create-recipe',
@@ -19,13 +20,7 @@ export class CreateRecipeComponent implements OnInit {
 
   public recipeProducts: Product[] = [];
   public recipeRecipes: Recipe[] = [];
-  public recipeCategories = [
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-  ];
+  public recipeCategories: Category[] = [];
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -43,6 +38,9 @@ export class CreateRecipeComponent implements OnInit {
     });
 
     this.productsList = this.createRecipeForm.get('products') as FormArray;
+    this.recipesDataService.getRecipeCategories().subscribe(
+      (categories: Category[]) => this.recipeCategories = categories
+    );
   }
 
   public addProduct(product: Product): void {

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Products } from '../../../app/common/interfaces/products';
 import { Product } from '../../../app/common/interfaces/product';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { FoodGroup } from './../../common/interfaces/food-groups';
 
 @Component({
   selector: 'app-add-contents',
@@ -13,33 +14,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class AddContentsComponent implements OnInit {
   public filterForm: FormGroup;
   public products: Product[] = [];
-  public foodGroups = [
-    'Dairy and Egg Products',
-    'Spices and Herbs',
-    'Baby Foods',
-    'Fats and Oils',
-    'Poultry Products',
-    'Soups, Sauces, and Gravies',
-    'Sausages and Luncheon Meats',
-    'Breakfast Cereals',
-    'Fruits and Fruit Juices',
-    'Pork Products',
-    'Vegetables and Vegetable Products',
-    'Nut and Seed Products',
-    'Beef Products',
-    'Beverages',
-    'Finfish and Shellfish Products',
-    'Legumes and Legume Products',
-    'Lamb, Veal, and Game Products',
-    'Baked Products',
-    'Sweets',
-    'Cereal Grains and Pasta',
-    'Fast Foods',
-    'Meals, Entrees, and Side Dishes',
-    'Snacks',
-    'American Indian/Alaska Native Foods',
-    'Restaurant Foods',
-  ];
+  public foodGroups: FoodGroup[] = [];
 
   public page = 1;
   public pageSize = 10;
@@ -48,7 +23,7 @@ export class AddContentsComponent implements OnInit {
   public through = 5;
 
   public search: string;
-  public foodGroup: string;
+  public foodGroup: number;
 
   @Input() public addedProductsModal: Product[];
   @Output() public addProduct = new EventEmitter<Product>();
@@ -66,6 +41,7 @@ export class AddContentsComponent implements OnInit {
     });
 
     this.getProducts();
+    this.getFoodGroups();
   }
 
   public open(modalWindow): void {
@@ -88,6 +64,14 @@ export class AddContentsComponent implements OnInit {
     );
   }
 
+  public getFoodGroups(): void {
+    this.productDataService.getFoodGroups().subscribe(
+      (foodGroup: FoodGroup[]) => {
+        this.foodGroups = foodGroup;
+      }
+    );
+  }
+
   public onSubmitFilter(): void {
     this.page = 1;
     this.search = this.filterForm.value.search;
@@ -99,7 +83,7 @@ export class AddContentsComponent implements OnInit {
   public onClearFilter(): void {
     this.page = 1;
     this.search = '';
-    this.foodGroup = '';
+    this.foodGroup = 0;
     this.filterForm.controls.search.setValue('');
     this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
 
