@@ -1,7 +1,9 @@
+import { CreateRecipe } from './../../common/interfaces/create-recipe';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from './../../common/interfaces/category';
+import { Recipe } from 'src/app/common/interfaces/recipe';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +28,8 @@ export class RecipesDataService {
 
   }
 
-  public createRecipe(recipe): Observable<any> {
-    return null;
+  public createRecipe(recipe: CreateRecipe): Observable<Recipe> {
+    return this.http.post<Recipe>(`http://localhost:3000/api/recipes`, recipe);
   }
 
   public updateRecipe(recipe): Observable<any> | void {

@@ -102,19 +102,21 @@ export class CreateRecipeComponent implements OnInit {
       category: this.createRecipeForm.value.category,
       products: ingredients,
       recipes: this.recipeRecipes,
+      nutrition: null,
     };
 
     console.log(recipe);
 
-    // this.recipesDataService.createRecipe(recipe).subscribe(
-    //   (recipe) => {
-    //     this.router.navigate(['/recipes']);
-    //     this.notificator.success('Recipe successfully created!');
-    //   },
-    //   (error) => {
-    //     this.notificator.error('Recipe creation unsuccessful!');
-    //   }
-    // );
+    this.recipesDataService.createRecipe(recipe).subscribe(
+      (recipe: Recipe) => {
+        // this.router.navigate(['/recipes']);
+        // this.notificator.success('Recipe successfully created!');
+        console.log(recipe);
+      },
+      (error) => {
+        this.notificator.error('Recipe creation unsuccessful!');
+      }
+    );
   }
 
 }
