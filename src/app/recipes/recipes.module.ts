@@ -6,7 +6,7 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RouterModule } from '@angular/router';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { AddContentsComponent } from './add-contents/add-contents.component';
-import { ProductNutritionsComponent } from './product-nutritions/product-nutritions.component';
+import { ItemNutritionComponent } from './item-nutrition/item-nutrition.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
@@ -16,7 +16,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     RecipeDetailsComponent,
     CreateRecipeComponent,
     AddContentsComponent,
-    ProductNutritionsComponent,
+    ItemNutritionComponent,
     RecipeViewComponent,
     TimeAgoPipe,
   ],

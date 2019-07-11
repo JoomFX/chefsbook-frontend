@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" colspan="2">Nutrient</th>
+      <th scope="col">Amount &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let nutrient of itemNutrition; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td colspan="2">{{nutrient[1].description}}</td>
+      <td>{{(nutrient[1].value * coefficient).toFixed(2)}} {{nutrient[1].unit}}</td>
+    </tr>
+  </tbody>
+</table>
