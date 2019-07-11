@@ -13,17 +13,29 @@
         <i class="date-icon far fa-calendar-alt"></i>{{recipe.created | timeAgo}}
     </span>
     <div class="recipe-nutrition">
-      <div>
-        Calories -  {{recipe.nutrition.ENERC_KCAL.value}}
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.ENERC_KCAL.value).toFixed(0)}} {{recipe.nutrition.CHOCDF.unit}}
+        </span>
+        <span class="nutrition-name">Calories</span>
       </div>
-      <div>
-          Fat -  {{recipe.nutrition.FAT.value}}
-        </div>
-        <div>
-            Sugars -  {{recipe.nutrition.SUGAR.value}}
-          </div>
-          <div>
-              Carbohydrates -  {{recipe.nutrition.CHOCDF.value}}
-            </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.FAT.value).toFixed(0)}} {{recipe.nutrition.FAT.unit}}
+        </span>
+        <span class="nutrition-name">Fat</span>
+      </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.SUGAR.value).toFixed(0)}} {{recipe.nutrition.SUGAR.unit}}
+        </span>
+        <span class="nutrition-name">Sugars</span>
+      </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.CHOCDF.value).toFixed(0)}} {{recipe.nutrition.CHOCDF.unit}}
+        </span>
+        <span class="nutrition-name">Carbs</span>
+      </div>
     </div>
 </div>

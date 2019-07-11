@@ -42,3 +42,28 @@
   margin-right: 6px;
   font-size: 90%;
 }
+
+.recipe-nutrition {
+  position: absolute;
+  right: 30px;
+  top: 26px;
+  font-size: 0.9rem;
+}
+
+.nutrition-container {
+  display: inline-block;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.nutrition-container > span {
+  display: block;
+}
+
+.nutrition-value {
+  font-weight: bold;
+}
+
+.nutrition-name {
+  font-style: italic;
+}
