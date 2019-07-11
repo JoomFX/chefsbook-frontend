@@ -1,0 +1,44 @@
+.recipe {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 20px 30px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.recipe-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.recipe-title-link {
+  color: #212529;
+  text-decoration: none;
+}
+
+.recipe-title-link:hover {
+  color: #47db00;
+}
+
+.recipe-description {
+  margin: 20px 0;
+}
+
+.recipe-details {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.recipe-category-link {
+  color: #28a745;
+}
+
+.recipe-author {
+  margin-right: 25px;
+}
+
+.category-icon, .date-icon {
+  margin-right: 6px;
+  font-size: 90%;
+}

@@ -2,7 +2,7 @@
   <a class="recipe-title-link" [routerLink]="['/recipes', recipe.id]">
     <h4 class="recipe-title">{{recipe.title}}</h4>
   </a>
-  <div class="recipe-content" *ngIf="showDescription"></div>
+  <div class="recipe-description" *ngIf="showDescription"></div>
   <div class="recipe-details">
     <span class="recipe-author">
       <!-- <a class="recipe-category-link" [routerLink]="['/categories', null]"> -->
