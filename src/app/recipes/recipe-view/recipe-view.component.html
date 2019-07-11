@@ -1,0 +1,15 @@
+<div class="recipe">
+  <a class="recipe-title-link" [routerLink]="['/recipes', recipe.id]">
+    <h4 class="recipe-title">{{recipe.title}}</h4>
+  </a>
+  <div class="recipe-content" *ngIf="showDescription"></div>
+  <div class="recipe-details">
+    <span class="recipe-author">
+      <!-- <a class="recipe-category-link" [routerLink]="['/categories', null]"> -->
+      <a class="recipe-category-link" href="#">
+        <span class="category-icon far fa-folder-open"></span>{{recipe.category.name}}</a>
+    </span>
+    <span class="recipe-created" ngbTooltip="{{recipe.created | date:'medium'}}">
+        <i class="date-icon far fa-calendar-alt"></i>{{recipe.created | timeAgo}}
+    </span>
+</div>

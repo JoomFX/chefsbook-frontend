@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { AddContentsComponent } from './add-contents/add-contents.component';
 import { ProductNutritionsComponent } from './product-nutritions/product-nutritions.component';
+import { RecipeViewComponent } from './recipe-view/recipe-view.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { ProductNutritionsComponent } from './product-nutritions/product-nutriti
     CreateRecipeComponent,
     AddContentsComponent,
     ProductNutritionsComponent,
+    RecipeViewComponent,
+    TimeAgoPipe,
   ],
   imports: [
     SharedModule,

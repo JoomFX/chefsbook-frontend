@@ -8,7 +8,19 @@
       </div>
       <div class="col-sm-6 text-right">
         <app-search-box></app-search-box>
-        <button type="button" (click)="showRecipes()">Click</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="recipes">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <app-recipe-view
+          *ngFor="let recipe of recipes"
+          [recipe]="recipe"
+          [showDescription]="false"
+        ></app-recipe-view>
       </div>
     </div>
   </div>
