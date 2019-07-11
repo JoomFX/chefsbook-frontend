@@ -105,7 +105,7 @@ export class CreateRecipeComponent implements OnInit {
       nutrition: null,
     };
 
-    console.log(recipe);
+    // console.log(recipe);
 
     this.recipesDataService.createRecipe(recipe).subscribe(
       (recipe: Recipe) => {
