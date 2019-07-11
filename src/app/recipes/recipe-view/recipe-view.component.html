@@ -12,4 +12,18 @@
     <span class="recipe-created" ngbTooltip="{{recipe.created | date:'medium'}}">
         <i class="date-icon far fa-calendar-alt"></i>{{recipe.created | timeAgo}}
     </span>
+    <div class="recipe-nutrition">
+      <div>
+        Calories -  {{recipe.nutrition.ENERC_KCAL.value}}
+      </div>
+      <div>
+          Fat -  {{recipe.nutrition.FAT.value}}
+        </div>
+        <div>
+            Sugars -  {{recipe.nutrition.SUGAR.value}}
+          </div>
+          <div>
+              Carbohydrates -  {{recipe.nutrition.CHOCDF.value}}
+            </div>
+    </div>
 </div>
