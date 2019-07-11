@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from './../../common/interfaces/category';
-import { Recipe } from 'src/app/common/interfaces/recipe';
+import { Recipe } from '../../common/interfaces/recipe';
+import { Recipes } from '../../common/interfaces/recipes';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,10 @@ export class RecipesDataService {
     );
   }
 
-  public getRecipes(page = 1, search: string): Observable<any> | void {
-
+  public getRecipes(page = 1, search = '', category = ''): Observable<Recipes> {
+    return this.http.get<Recipes>(
+      `http://localhost:3000/api/recipes?page=${page}&search=${search}&foodGroup=${category}`
+    );
   }
 
   public getSingleRecipe(recipeid: string): Observable<any> | void {
