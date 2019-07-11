@@ -1,16 +1,4 @@
-<section id="recipes-top">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-sm-6">
-          <button class="create-recipe-button" [routerLink]="['/recipes/create']">
-              <span class="button-icon fas fa-pencil-alt"></span>Create Recipe
-          </button>
-        </div>
-        <div class="col-sm-6 text-right">
-        </div>
-      </div>
-    </div>
-  </section>
+<app-top-buttons [showSearch]="false"></app-top-buttons>
 <section id="single-recipe">
     <div class="container">
       <div class="row">
