@@ -1,0 +1,10 @@
+.outer {
+  display:  flex;
+  flex-wrap: wrap-reverse;
+}
+.inner {
+  display: flex;
+  width: 150px;
+  justify-content: space-between;
+  margin: 10px;
+}

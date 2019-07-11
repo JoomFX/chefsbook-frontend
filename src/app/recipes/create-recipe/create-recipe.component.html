@@ -66,11 +66,11 @@
                             <div [formGroupName]="i">
                               <div class="form-row align-items-center dynamic-item">
                                 <div class="col-auto">
-                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0">
+                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0" (change)="calculateProductNutrition(i, $event)" >
                                 </div>
                                 <div class="col-auto">
                                   <select formControlName="measure" class="form-control"
-                                    (change)="onChangeProductMeasureSelect(i, $event)"
+                                    (change)="onChangeProductMeasureSelect(i, $event); calculateProductNutrition(i, $event)"
                                   >
                                     <option selected value> - Select Unit - </option>
                                     <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
@@ -85,8 +85,14 @@
                         </ng-template>
                         <ng-template ngbPanelContent>
                           Amount: {{this.getProductFormGroup(i).controls['amount'].value}} <br />
-                          Measure: {{this.getProductFormGroup(i).controls['measure'].value}}
+                          Measure: {{this.getProductFormGroup(i).controls['measure'].value}} <br />
+                          Nutritions: 
+                          <app-product-nutritions [nutritionPerGram]="product.nutrition" [productMeasure]="product.measures" 
+                          [quantity]="this.getProductFormGroup(i).controls['amount'].value"
+                          [meassure]="this.getProductFormGroup(i).controls['measure'].value"></app-product-nutritions>
                         </ng-template>
+                        
+                      
                       </ngb-panel>
                     </ngb-accordion>
                   </div>

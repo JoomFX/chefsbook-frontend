@@ -6,6 +6,7 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RouterModule } from '@angular/router';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { AddContentsComponent } from './add-contents/add-contents.component';
+import { ProductNutritionsComponent } from './product-nutritions/product-nutritions.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AddContentsComponent } from './add-contents/add-contents.component';
     RecipeDetailsComponent,
     CreateRecipeComponent,
     AddContentsComponent,
+    ProductNutritionsComponent,
   ],
   imports: [
     SharedModule,

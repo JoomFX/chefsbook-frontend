@@ -76,11 +76,11 @@ export class CreateRecipeComponent implements OnInit {
     return formGroup;
   }
 
-  public onChangeProductMeasureSelect(index: number, event): void{
+  public onChangeProductMeasureSelect(index: number, event): void {
     this.getProductFormGroup(index).controls.measure.setValue(event.target.value, { onlySelf: true });
   }
 
-  public onChangeCategorySelect(event): void{
+  public onChangeCategorySelect(event): void {
     this.createRecipeForm.controls.category.setValue(event.target.value, { onlySelf: true });
   }
 
@@ -119,4 +119,8 @@ export class CreateRecipeComponent implements OnInit {
     );
   }
 
+  calculateProductNutrition(i, $event) {
+    // this.recipeProducts[i].
+    // console.log(this.recipeProducts[i]);
+  }
 }
