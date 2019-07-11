@@ -27,8 +27,8 @@ export class RecipesDataService {
     );
   }
 
-  public getSingleRecipe(recipeid: string): Observable<any> | void {
-
+  public getSingleRecipe(recipeId: string): Observable<Recipe> {
+    return this.http.get<Recipe>(`http://localhost:3000/api/recipes/${recipeId}`);
   }
 
   public createRecipe(recipe: CreateRecipe): Observable<Recipe> {

@@ -1,3 +1,25 @@
-<p>
-  recipe-details works!
-</p>
+<section id="recipes-top">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-sm-6">
+          <button class="create-recipe-button" [routerLink]="['/recipes/create']">
+              <span class="button-icon fas fa-pencil-alt"></span>Create Recipe
+          </button>
+        </div>
+        <div class="col-sm-6 text-right">
+        </div>
+      </div>
+    </div>
+  </section>
+<section id="single-recipe">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <app-recipe-view
+            [recipe]="recipe"
+            [showDescription]="true"
+          ></app-recipe-view>
+        </div>
+      </div>
+    </div>
+  </section>
