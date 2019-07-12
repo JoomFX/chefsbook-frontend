@@ -1,0 +1,41 @@
+<div class="recipe">
+  <a class="recipe-title-link" [routerLink]="['/recipes', recipe.id]">
+    <h4 class="recipe-title">{{recipe.title}}</h4>
+  </a>
+  <div class="recipe-description" *ngIf="showDescription">{{recipe.description}}</div>
+  <div class="recipe-details">
+    <span class="recipe-author">
+      <!-- <a class="recipe-category-link" [routerLink]="['/categories', null]"> -->
+      <a class="recipe-category-link" href="#">
+        <span class="category-icon far fa-folder-open"></span>{{recipe.category.name}}</a>
+    </span>
+    <span class="recipe-created" ngbTooltip="{{recipe.created | date:'medium'}}">
+        <i class="date-icon far fa-calendar-alt"></i>{{recipe.created | timeAgo}}
+    </span>
+    <div class="recipe-nutrition">
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.ENERC_KCAL.value).toFixed(0)}} {{recipe.nutrition.CHOCDF.unit}}
+        </span>
+        <span class="nutrition-name">Calories</span>
+      </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.FAT.value).toFixed(0)}} {{recipe.nutrition.FAT.unit}}
+        </span>
+        <span class="nutrition-name">Fat</span>
+      </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.SUGAR.value).toFixed(0)}} {{recipe.nutrition.SUGAR.unit}}
+        </span>
+        <span class="nutrition-name">Sugars</span>
+      </div>
+      <div class="nutrition-container">
+        <span class="nutrition-value">
+          {{(recipe.nutrition.CHOCDF.value).toFixed(0)}} {{recipe.nutrition.CHOCDF.unit}}
+        </span>
+        <span class="nutrition-name">Carbs</span>
+      </div>
+    </div>
+</div>

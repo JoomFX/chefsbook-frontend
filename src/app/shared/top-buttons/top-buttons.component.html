@@ -1,0 +1,14 @@
+<section id="recipes-top">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-sm-6">
+          <button class="create-recipe-button" [routerLink]="['/recipes/create']">
+              <span class="button-icon fas fa-pencil-alt"></span>Create Recipe
+          </button>
+        </div>
+        <div class="col-sm-6 text-right">
+          <app-search-box *ngIf="showSearch"></app-search-box>
+        </div>
+      </div>
+    </div>
+  </section>

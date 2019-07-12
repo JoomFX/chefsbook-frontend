@@ -5,11 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { TopButtonsComponent } from './top-buttons/top-buttons.component';
 
 @NgModule({
   declarations: [
     SearchBoxComponent,
     PaginationComponent,
+    TopButtonsComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     ReactiveFormsModule,
     SearchBoxComponent,
     PaginationComponent,
+    TopButtonsComponent,
   ],
 })
 export class SharedModule { }

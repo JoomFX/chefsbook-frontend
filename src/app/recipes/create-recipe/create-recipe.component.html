@@ -83,13 +83,12 @@
                             </div>
                           </div>
                         </ng-template>
-                        <ng-template ngbPanelContent>
-                          Amount: {{this.getProductFormGroup(i).controls['amount'].value}} <br />
-                          Measure: {{this.getProductFormGroup(i).controls['measure'].value}} <br />
-                          Nutritions: 
-                          <app-product-nutritions [nutritionPerGram]="product.nutrition" [productMeasure]="product.measures" 
-                          [quantity]="this.getProductFormGroup(i).controls['amount'].value"
-                          [meassure]="this.getProductFormGroup(i).controls['measure'].value"></app-product-nutritions>
+                        <ng-template ngbPanelContent> 
+                          <app-item-nutrition
+                            [item]="product"
+                            [amount]="this.getProductFormGroup(i).controls['amount'].value"
+                            [measure]="this.getProductFormGroup(i).controls['measure'].value"
+                          ></app-item-nutrition>
                         </ng-template>
                         
                       
