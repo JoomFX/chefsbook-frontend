@@ -1,10 +1,13 @@
+import { RecipesDataService } from './../services/recipes-data.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ProductsDataService } from '../services/products-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Products } from '../../../app/common/interfaces/products';
 import { Product } from '../../../app/common/interfaces/product';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { FoodGroup } from './../../common/interfaces/food-groups';
+import { Category } from './../../common/interfaces/category';
+import { Recipes } from './../../common/interfaces/recipes';
+import { Recipe } from '../../../app/common/interfaces/recipe';
 
 @Component({
   selector: 'app-add-contents',
@@ -12,54 +15,66 @@ import { FoodGroup } from './../../common/interfaces/food-groups';
   styleUrls: ['./add-contents.component.css']
 })
 export class AddContentsComponent implements OnInit {
-  public filterForm: FormGroup;
   public products: Product[] = [];
   public foodGroups: FoodGroup[] = [];
+  public recipes: Recipe[] = [];
+  public categories: Category[] = [];
 
-  public page = 1;
-  public pageSize = 10;
-  public collectionSize: number;
-  public viewing = 5;
-  public through = 5;
+  // Products Pagination
+  public productsPage = 1;
+  public productsPageSize = 10;
+  public productsCollectionSize: number;
+  public productsViewing = 5;
+  public productsThrough = 5;
 
-  public search: string;
+  // Recipes Pagination
+  public recipesPage = 1;
+  public recipesPageSize = 10;
+  public recipesCollectionSize: number;
+  public recipesViewing = 5;
+  public recipesThrough = 5;
+
+  public searchProduct: string;
   public foodGroup: number;
+
+  public searchRecipe: string;
+  public category: string;
 
   @Input() public addedProductsModal: Product[];
   @Output() public addProduct = new EventEmitter<Product>();
+  @Output() public addRecipe = new EventEmitter<Recipe>();
 
   constructor(
     private readonly productDataService: ProductsDataService,
+    private readonly recipesDataService: RecipesDataService,
     private readonly modalService: NgbModal,
-    private readonly formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.filterForm = this.formBuilder.group({
-      search: [''],
-      foodGroup: [''],
-    });
-
     this.getProducts();
     this.getFoodGroups();
+    this.getRecipes();
+    this.getCategories();
   }
 
   public open(modalWindow): void {
-    this.modalService.open(modalWindow, { size: 'lg' });
-  }
+    const modal = this.modalService.open(modalWindow, { size: 'lg' });
 
-  public onChangeFoodGroupSelect(event): void{
-    this.filterForm.controls.foodGroup.setValue(event.target.value, { onlySelf: true });
+    // Modal Close Event
+    modal.result.then(
+      () => this.clearFilterInModals(),
+      () => this.clearFilterInModals(),
+    );
   }
 
   public getProducts(): void {
-    this.productDataService.getProducts(this.page, this.search, this.foodGroup).subscribe(
+    this.productDataService.getProducts(this.productsPage, this.searchProduct, this.foodGroup).subscribe(
       (products: Products) => {
         this.products = products.products;
-        this.collectionSize = products.count;
+        this.productsCollectionSize = products.count;
 
-        this.through = Math.min((this.page * this.pageSize), this.collectionSize);
-        this.viewing = Math.min(this.pageSize, this.through - ((this.page * this.pageSize) - (this.pageSize - 1))) + 1;
+        this.productsThrough = Math.min((this.productsPage * this.productsPageSize), this.productsCollectionSize);
+        this.productsViewing = Math.min(this.productsPageSize, this.productsThrough - ((this.productsPage * this.productsPageSize) - (this.productsPageSize - 1))) + 1;
       }
     );
   }
@@ -72,31 +87,70 @@ export class AddContentsComponent implements OnInit {
     );
   }
 
-  public onSubmitFilter(): void {
-    this.page = 1;
-    this.search = this.filterForm.value.search;
-    this.foodGroup = this.filterForm.value.foodGroup;
+  public getRecipes(): void {
+    this.recipesDataService.getRecipes(this.recipesPage, this.searchRecipe, this.category).subscribe(
+      (recipes: Recipes) => {
+        this.recipes = recipes.recipes;
+        this.recipesCollectionSize = recipes.count;
+
+        this.recipesThrough = Math.min((this.recipesPage * this.recipesPageSize), this.recipesCollectionSize);
+        this.recipesViewing = Math.min(this.recipesPageSize, this.recipesThrough - ((this.recipesPage * this.recipesPageSize) - (this.recipesPageSize - 1))) + 1;
+      }
+    );
+  }
+
+  public getCategories(): void {
+    this.recipesDataService.getRecipeCategories().subscribe(
+      (categories: Category[]) => {
+        this.categories = categories;
+      }
+    );
+  }
+
+  public onSubmitFilterProduct(event): void {
+    this.productsPage = 1;
+    this.searchProduct = event.search;
+    this.foodGroup = event.foodGroup;
 
     this.getProducts();
   }
 
-  public onClearFilter(): void {
-    this.page = 1;
-    this.search = '';
+  public onSubmitFilterRecipe(event): void {
+    this.recipesPage = 1;
+    this.searchRecipe = event.search;
+    this.category = event.foodGroup;
+
+    this.getRecipes();
+  }
+
+  public clearFilterInModals(): void {
+    this.productsPage = 1;
+    this.recipesPage = 1;
+    this.searchProduct = '';
+    this.searchRecipe = '';
     this.foodGroup = 0;
-    this.filterForm.controls.search.setValue('');
-    this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
+    this.category = '';
 
+    this.getProducts();
+    this.getRecipes();
+  }
+
+  public onProductsPaginationChange(page: number): void {
+    this.productsPage = page;
     this.getProducts();
   }
 
-  public onPaginationChange(page: number): void {
-    this.page = page;
+  public onRecipesPaginationChange(page: number): void {
+    this.recipesPage = page;
     this.getProducts();
   }
 
-  public addProductToRecipe(product) {
+  public addProductToRecipe(product: Product) {
     this.addProduct.emit(product);
+  }
+
+  public addRecipeToRecipe(recipe: Recipe) {
+    this.addRecipe.emit(recipe);
   }
 
 }

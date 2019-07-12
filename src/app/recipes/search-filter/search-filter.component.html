@@ -1,0 +1,37 @@
+<div class="filter-container">
+  <form id="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmitFilter()">
+    <div class="form-row align-items-center">
+      <div class="col-auto">
+        <input formControlName="search" class="form-control" name="search" type="search" placeholder="Search {{searchPlaceholder}}">
+      </div>
+      <div class="col-auto">
+        <select formControlName="foodGroup" class="form-control"
+          *ngIf="usedFor === 'products'"
+          (change)="onChangeFoodGroupSelect($event)">
+          <option selected value> -- Select {{selectPlaceholder}} -- </option>
+          <option
+            *ngFor="let foodGroup of foodGroups"
+            [value]="foodGroup.code">
+            {{ (foodGroup.description.length>30)? (foodGroup.description | slice:0:30)+'...':(foodGroup.description) }}
+          </option>
+        </select>
+        <select formControlName="foodGroup" class="form-control"
+          *ngIf="usedFor === 'recipes'"
+          (change)="onChangeFoodGroupSelect($event)">
+          <option selected value> -- Select {{selectPlaceholder}} -- </option>
+          <option
+            *ngFor="let foodGroup of foodGroups"
+            [value]="foodGroup.name">
+            {{ (foodGroup.name) }}
+          </option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-secondary filter-button">Filter</button>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-secondary clear-button" (click)="onClearFilter()">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

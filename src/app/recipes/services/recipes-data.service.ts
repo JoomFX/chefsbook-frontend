@@ -23,7 +23,7 @@ export class RecipesDataService {
 
   public getRecipes(page = 1, search = '', category = ''): Observable<Recipes> {
     return this.http.get<Recipes>(
-      `http://localhost:3000/api/recipes?page=${page}&search=${search}&foodGroup=${category}`
+      `http://localhost:3000/api/recipes?page=${page}&search=${search}&category=${category}`
     );
   }
 

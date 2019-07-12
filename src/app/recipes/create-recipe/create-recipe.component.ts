@@ -48,6 +48,10 @@ export class CreateRecipeComponent implements OnInit {
     this.addProductFormGroup();
   }
 
+  public addRecipe(recipe: Recipe): void {
+    this.recipeRecipes.push(recipe);
+  }
+
   public removeProduct(productCode: number): void {
     const productIndex = this.recipeProducts.findIndex((product) => product.code === productCode);
     this.recipeProducts.splice(productIndex, 1);
