@@ -8,6 +8,7 @@
               (addProduct)="addProduct($event)"
               (addRecipe)="addRecipe($event)"
               [addedProductsModal]="recipeProducts"
+              [addedRecipesModal]="recipeRecipes"
             ></app-add-contents>
           </div>
           <div class="create-recipe-form">
@@ -67,11 +68,11 @@
                             <div [formGroupName]="i">
                               <div class="form-row align-items-center dynamic-item">
                                 <div class="col-auto">
-                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0" (change)="calculateProductNutrition(i, $event)" >
+                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0">
                                 </div>
                                 <div class="col-auto">
                                   <select formControlName="measure" class="form-control"
-                                    (change)="onChangeProductMeasureSelect(i, $event); calculateProductNutrition(i, $event)"
+                                    (change)="onChangeProductMeasureSelect(i, $event)"
                                   >
                                     <option selected value> - Select Unit - </option>
                                     <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
@@ -86,23 +87,48 @@
                         </ng-template>
                         <ng-template ngbPanelContent> 
                           <app-item-nutrition
+                            [usedFor]="'products'"
                             [item]="product"
                             [amount]="this.getProductFormGroup(i).controls['amount'].value"
                             [measure]="this.getProductFormGroup(i).controls['measure'].value"
                           ></app-item-nutrition>
                         </ng-template>
-                        
-                      
                       </ngb-panel>
                     </ngb-accordion>
                   </div>
                 </div>
                 <div class="recipes-container">
                   <h5>Recipes</h5>
-                  <div class="recipes-container-inner">
+                  <div class="recipes-container-inner" formArrayName="recipes">
                     <div class="alert alert-warning" role="alert" *ngIf="recipeRecipes.length === 0">
                       There are no recipes added to this recipe yet!
                     </div>
+                    <ngb-accordion #acc="ngbAccordion" *ngIf="recipeRecipes.length > 0">
+                      <ngb-panel *ngFor="let recipe of recipeRecipes; let i = index">
+                        <ng-template ngbPanelHeader>
+                          <div class="d-flex align-items-center justify-content-between">
+                            <button class="btn btn-link" ngbPanelToggle>{{recipe.title}}</button>
+                            <div [formGroupName]="i">
+                              <div class="form-row align-items-center dynamic-item">
+                                <div class="col-auto">
+                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0">
+                                </div>
+                                <div class="col-auto">
+                                    <span class="remove-icon far fa-times-circle" (click)="removeRecipe(recipe.id)"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent> 
+                          <app-item-nutrition
+                            [usedFor]="'recipes'"
+                            [item]="recipe"
+                            [amount]="this.getRecipeFormGroup(i).controls['amount'].value"
+                          ></app-item-nutrition>
+                        </ng-template>
+                      </ngb-panel>
+                    </ngb-accordion>
                   </div>
                 </div>
               </div>

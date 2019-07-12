@@ -41,6 +41,7 @@ export class AddContentsComponent implements OnInit {
   public category: string;
 
   @Input() public addedProductsModal: Product[];
+  @Input() public addedRecipesModal: Recipes[];
   @Output() public addProduct = new EventEmitter<Product>();
   @Output() public addRecipe = new EventEmitter<Recipe>();
 

@@ -17,6 +17,7 @@ import { Category } from './../../common/interfaces/category';
 export class CreateRecipeComponent implements OnInit {
   public createRecipeForm: FormGroup;
   public productsList: FormArray;
+  public recipesList: FormArray;
 
   public recipeProducts: Product[] = [];
   public recipeRecipes: Recipe[] = [];
@@ -35,9 +36,12 @@ export class CreateRecipeComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(3)]],
       category: ['', Validators.required],
       products: this.formBuilder.array([]),
+      recipes: this.formBuilder.array([]),
     });
 
     this.productsList = this.createRecipeForm.get('products') as FormArray;
+    this.recipesList = this.createRecipeForm.get('recipes') as FormArray;
+
     this.recipesDataService.getRecipeCategories().subscribe(
       (categories: Category[]) => this.recipeCategories = categories
     );
@@ -50,12 +54,19 @@ export class CreateRecipeComponent implements OnInit {
 
   public addRecipe(recipe: Recipe): void {
     this.recipeRecipes.push(recipe);
+    this.addRecipeFormGroup();
   }
 
   public removeProduct(productCode: number): void {
     const productIndex = this.recipeProducts.findIndex((product) => product.code === productCode);
     this.recipeProducts.splice(productIndex, 1);
     this.removeProductFormGroup(productIndex);
+  }
+
+  public removeRecipe(recipeId: string): void {
+    const recipeIndex = this.recipeRecipes.findIndex((recipe) => recipe.id === recipeId);
+    this.recipeRecipes.splice(recipeIndex, 1);
+    this.removeRecipeFormGroup(recipeIndex);
   }
 
   public createProductFormGroup(): FormGroup {
@@ -65,17 +76,38 @@ export class CreateRecipeComponent implements OnInit {
     });
   }
 
+  public createRecipeFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      amount: ['', [Validators.required]],
+    });
+  }
+
   public addProductFormGroup(): void {
     this.productsList.push(this.createProductFormGroup());
+  }
+
+  public addRecipeFormGroup(): void {
+    this.recipesList.push(this.createRecipeFormGroup());
   }
 
   public removeProductFormGroup(index: number): void {
     this.productsList.removeAt(index);
   }
 
+  public removeRecipeFormGroup(index: number): void {
+    this.recipesList.removeAt(index);
+  }
+
   public getProductFormGroup(index: number): FormGroup {
     this.productsList = this.createRecipeForm.get('products') as FormArray;
     const formGroup = this.productsList.controls[index] as FormGroup;
+
+    return formGroup;
+  }
+
+  public getRecipeFormGroup(index: number): FormGroup {
+    this.recipesList = this.createRecipeForm.get('recipes') as FormArray;
+    const formGroup = this.recipesList.controls[index] as FormGroup;
 
     return formGroup;
   }

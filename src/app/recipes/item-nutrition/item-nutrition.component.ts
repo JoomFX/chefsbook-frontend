@@ -11,6 +11,7 @@ export class ItemNutritionComponent implements OnInit, OnChanges {
   @Input() public item: Product & Recipe;
   @Input() public amount: number;
   @Input() public measure: string;
+  @Input() public usedFor: string;
 
   public itemNutrition = [];
   public coefficient = 0;
@@ -22,11 +23,13 @@ export class ItemNutritionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.measure) {
+    if (this.usedFor === 'products' && this.measure) {
       const gramsPerMeasure = this.item.measures.find(element => element.measure === this.measure).gramsPerMeasure;
       const itemQuantityInGrams = this.amount * gramsPerMeasure;
 
       this.coefficient = itemQuantityInGrams / 100;
+    } else if (this.usedFor === 'recipes') {
+      this.coefficient = this.amount;
     }
   }
 }
