@@ -89,7 +89,7 @@ export class AddContentsComponent implements OnInit {
   }
 
   public getRecipes(): void {
-    this.recipesDataService.getRecipes(this.recipesPage, this.searchRecipe, this.category).subscribe(
+    this.recipesDataService.getRecipes(this.recipesPage, this.searchRecipe, this.category, 'noSubrecipes').subscribe(
       (recipes: Recipes) => {
         this.recipes = recipes.recipes;
         this.recipesCollectionSize = recipes.count;
