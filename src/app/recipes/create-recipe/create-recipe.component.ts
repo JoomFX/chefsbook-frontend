@@ -8,6 +8,7 @@ import { CreateRecipe } from './../../common/interfaces/create-recipe';
 import { Recipe } from './../../common/interfaces/recipe';
 import { Ingredient } from './../../common/interfaces/ingredient';
 import { Category } from './../../common/interfaces/category';
+import { Subrecipe } from './../../common/interfaces/subrecipe';
 
 @Component({
   selector: 'app-create-recipe',
@@ -132,16 +133,26 @@ export class CreateRecipeComponent implements OnInit {
       ingredients.push(ingredient);
     });
 
+    const subrecipes: Subrecipe[] = [];
+    this.recipeRecipes.map((recipe: Recipe, index) => {
+      const subrecipe: Subrecipe = {
+        recipe,
+        amount: this.getRecipeFormGroup(index).value.amount,
+      };
+
+      subrecipes.push(subrecipe);
+    });
+
     const recipe: CreateRecipe = {
       title: this.createRecipeForm.value.title,
       description: this.createRecipeForm.value.description,
       category: this.createRecipeForm.value.category,
       products: ingredients,
-      recipes: this.recipeRecipes,
+      recipes: subrecipes,
       nutrition: null,
     };
 
-    // console.log(recipe);
+    console.log(recipe);
 
     this.recipesDataService.createRecipe(recipe).subscribe(
       (recipe: Recipe) => {
@@ -153,10 +164,5 @@ export class CreateRecipeComponent implements OnInit {
         this.notificator.error('Recipe creation unsuccessful!');
       }
     );
-  }
-
-  calculateProductNutrition(i, $event) {
-    // this.recipeProducts[i].
-    // console.log(this.recipeProducts[i]);
   }
 }
