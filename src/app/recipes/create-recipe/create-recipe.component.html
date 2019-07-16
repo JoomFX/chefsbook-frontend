@@ -68,11 +68,12 @@
                             <div [formGroupName]="i">
                               <div class="form-row align-items-center dynamic-item">
                                 <div class="col-auto">
-                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0">
+                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0" (change)="calculateTotalNutrition()">
                                 </div>
                                 <div class="col-auto">
                                   <select formControlName="measure" class="form-control"
                                     (change)="onChangeProductMeasureSelect(i, $event)"
+                                    (change)="calculateTotalNutrition()"
                                   >
                                     <option selected value> - Select Unit - </option>
                                     <option *ngFor="let measure of product.measures" [value]="measure.measure">{{measure.measure}}</option>
@@ -111,7 +112,7 @@
                             <div [formGroupName]="i">
                               <div class="form-row align-items-center dynamic-item">
                                 <div class="col-auto">
-                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0">
+                                  <input formControlName="amount" class="form-control" name="search" type="number" min="0" placeholder="0" (change)="calculateTotalNutrition()">
                                 </div>
                                 <div class="col-auto">
                                     <span class="remove-icon far fa-times-circle" (click)="removeRecipe(recipe.id)"></span>
@@ -131,6 +132,67 @@
                     </ngb-accordion>
                   </div>
                 </div>
+              </div>
+              <div class="recipe-total-nutrition">
+                <h5>Total Recipe Nutrition</h5>
+                <div class="recipe-total-nutrition-inner">
+                  <div class="row">
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.ENERC_KCAL.value.toFixed(0)}} {{totalRecipeNutrition.ENERC_KCAL.unit}}
+                      </span>
+                      <span class="nutrition-name">Calories</span>
+                    </div>
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.FAT.value.toFixed(0)}} {{totalRecipeNutrition.FAT.unit}}
+                      </span>
+                      <span class="nutrition-name">Fat</span>
+                    </div>
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.SUGAR.value.toFixed(0)}} {{totalRecipeNutrition.SUGAR.unit}}
+                      </span>
+                      <span class="nutrition-name">Sugars</span>
+                    </div>
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.CHOCDF.value.toFixed(0)}} {{totalRecipeNutrition.CHOCDF.unit}}
+                      </span>
+                      <span class="nutrition-name">Carbs</span>
+                    </div>
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.PROCNT.value.toFixed(0)}} {{totalRecipeNutrition.PROCNT.unit}}
+                      </span>
+                      <span class="nutrition-name">Protein</span>
+                    </div>
+                    <div class="nutrition-container col-sm">
+                      <span class="nutrition-value">
+                        {{totalRecipeNutrition.CA.value.toFixed(0)}} {{totalRecipeNutrition.CA.unit}}
+                      </span>
+                      <span class="nutrition-name">Calcium</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="recipe-total-details">
+                <ngb-accordion #acc="ngbAccordion">
+                  <ngb-panel>
+                    <ng-template ngbPanelHeader>
+                      <div class="d-flex align-items-center justify-content-between">
+                        <button class="btn btn-link" ngbPanelToggle>Show Total Nutrition Table</button>
+                      </div>
+                    </ng-template>
+                    <ng-template ngbPanelContent> 
+                      <app-item-nutrition
+                        [usedFor]="'total'"
+                        [item]="totalRecipeNutrition"
+                        [amount]="1"
+                      ></app-item-nutrition>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
               </div>
               <div class="create-button-container">
                 <button type="submit" class="btn btn-primary"

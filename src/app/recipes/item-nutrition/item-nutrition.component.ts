@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Product } from './../../common/interfaces/product';
 import { Recipe } from './../../common/interfaces/recipe';
+import { Nutrition } from '../../../app/common/interfaces/nutrition';
 
 @Component({
   selector: 'app-item-nutrition',
@@ -8,7 +9,7 @@ import { Recipe } from './../../common/interfaces/recipe';
   styleUrls: ['./item-nutrition.component.css']
 })
 export class ItemNutritionComponent implements OnInit, OnChanges {
-  @Input() public item: Product & Recipe;
+  @Input() public item: Product & Recipe & Nutrition;
   @Input() public amount: number;
   @Input() public measure: string;
   @Input() public usedFor: string;
@@ -19,7 +20,11 @@ export class ItemNutritionComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.itemNutrition = Object.entries(this.item.nutrition);
+    if (this.usedFor === 'total') {
+      this.itemNutrition = Object.entries(this.item);
+    } else {
+      this.itemNutrition = Object.entries(this.item.nutrition);
+    }
   }
 
   ngOnChanges() {
@@ -28,7 +33,7 @@ export class ItemNutritionComponent implements OnInit, OnChanges {
       const itemQuantityInGrams = this.amount * gramsPerMeasure;
 
       this.coefficient = itemQuantityInGrams / 100;
-    } else if (this.usedFor === 'recipes') {
+    } else if (this.usedFor === 'recipes' || this.usedFor === 'total') {
       this.coefficient = this.amount;
     }
   }
