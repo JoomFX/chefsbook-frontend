@@ -11,6 +11,10 @@ import { Category } from './../../common/interfaces/category';
 import { Subrecipe } from './../../common/interfaces/subrecipe';
 import { Nutrition } from '../../../app/common/interfaces/nutrition';
 import { cloneDeep } from 'lodash';
+import { ProductsDataService } from '../services/products-data.service';
+import { FoodGroup } from '../../../app/common/interfaces/food-groups';
+import { Products } from '../../../app/common/interfaces/products';
+import { Recipes } from '../../../app/common/interfaces/recipes';
 
 @Component({
   selector: 'app-create-recipe',
@@ -22,20 +26,36 @@ export class CreateRecipeComponent implements OnInit {
   public productsList: FormArray;
   public recipesList: FormArray;
 
+  public products: Product[] = [];
+  public foodGroups: FoodGroup[] = [];
+  public recipes: Recipe[] = [];
+  public categories: Category[] = [];
+
   public recipeProducts: Product[] = [];
   public recipeRecipes: Recipe[] = [];
-  public recipeCategories: Category[] = [];
 
   public totalRecipeNutrition: Nutrition;
 
+  // Products Pagination
+  public productsCollectionSize: number;
+
+  // Recipes Pagination
+  public recipesCollectionSize: number;
+
   constructor(
     private readonly recipesDataService: RecipesDataService,
+    private readonly productDataService: ProductsDataService,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly notificator: NotificatorService,
   ) { }
 
   ngOnInit() {
+    this.getProducts({ productPage: 1, searchProduct: '', foodGroup: 0 });
+    this.getFoodGroups();
+    this.getRecipes({ recipePage: 1, searchRecipe: '', category: '' });
+    this.getCategories();
+
     this.createRecipeForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
@@ -46,10 +66,6 @@ export class CreateRecipeComponent implements OnInit {
 
     this.productsList = this.createRecipeForm.get('products') as FormArray;
     this.recipesList = this.createRecipeForm.get('recipes') as FormArray;
-
-    this.recipesDataService.getRecipeCategories().subscribe(
-      (categories: Category[]) => this.recipeCategories = categories
-    );
 
     this.totalRecipeNutrition = {
       PROCNT: { description: 'Protein', unit: 'g', value: 0 },
@@ -75,6 +91,40 @@ export class CreateRecipeComponent implements OnInit {
       FAMS: { description: 'Fatty acids, total monounsaturated', unit: 'g', value: 0 },
       FAPU: { description: 'Fatty acids, total polyunsaturated', unit: 'g', value: 0 },
     };
+  }
+
+  public getProducts(event): void {
+    this.productDataService.getProducts(event.productPage, event.searchProduct, event.foodGroup).subscribe(
+      (products: Products) => {
+        this.products = products.products;
+        this.productsCollectionSize = products.count;
+      }
+    );
+  }
+
+  public getFoodGroups(): void {
+    this.productDataService.getFoodGroups().subscribe(
+      (foodGroup: FoodGroup[]) => {
+        this.foodGroups = foodGroup;
+      }
+    );
+  }
+
+  public getRecipes(event): void {
+    this.recipesDataService.getRecipes(event.recipePage, event.searchRecipe, event.category, 'noSubrecipes').subscribe(
+      (recipes: Recipes) => {
+        this.recipes = recipes.recipes;
+        this.recipesCollectionSize = recipes.count;
+      }
+    );
+  }
+
+  public getCategories(): void {
+    this.recipesDataService.getRecipeCategories().subscribe(
+      (categories: Category[]) => {
+        this.categories = categories;
+      }
+    );
   }
 
   public addProduct(product: Product): void {
@@ -361,7 +411,6 @@ export class CreateRecipeComponent implements OnInit {
       (recipe: Recipe) => {
         this.router.navigate(['/recipes']);
         this.notificator.success('Recipe successfully created!');
-        console.log(recipe);
       },
       (error) => {
         this.notificator.error('Recipe creation unsuccessful!');
