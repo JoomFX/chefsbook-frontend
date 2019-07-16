@@ -5,10 +5,18 @@
         <div class="create-recipe-container">
           <div class="add-buttons-container">
             <app-add-contents
+              [products]="products"
+              [foodGroups]="foodGroups"
+              [recipes]="recipes"
+              [categories]="categories"
+              [productsCollectionSize]="productsCollectionSize"
+              [recipesCollectionSize]="recipesCollectionSize"
               (addProduct)="addProduct($event)"
               (addRecipe)="addRecipe($event)"
               [addedProductsModal]="recipeProducts"
               [addedRecipesModal]="recipeRecipes"
+              (getProducts)="getProducts($event)"
+              (getRecipes)="getRecipes($event)"
             ></app-add-contents>
           </div>
           <div class="create-recipe-form">
@@ -45,7 +53,7 @@
                   [class.is-invalid]="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"
                 >
                   <option selected value> -- Select Category -- </option>
-                  <option *ngFor="let category of recipeCategories" [value]="category.name">{{category.name}}</option>
+                  <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
                 </select>
                 <div class="invalid-feedback"
                   *ngIf="this.createRecipeForm.controls['category'].invalid && this.createRecipeForm.controls['category'].touched"

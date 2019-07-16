@@ -29,9 +29,9 @@
       <li *ngFor="let product of this.products">{{product.description}}
         <button class="btn btn-success btn-sm"
           (click)="addProductToRecipe(product)"
-          *ngIf="!this.addedProductsModal.includes(product)"
+          *ngIf="!isProductAdded(product.code)"
         >Add</button>
-        <button class="btn btn-success btn-sm" disabled *ngIf="this.addedProductsModal.includes(product)">Added</button>
+        <button class="btn btn-success btn-sm" disabled *ngIf="isProductAdded(product.code)">Added</button>
       </li>
     </ul>
     <div class="pagination-container">
@@ -65,9 +65,9 @@
       <li *ngFor="let recipe of this.recipes">{{recipe.title}}
         <button class="btn btn-success btn-sm"
           (click)="addRecipeToRecipe(recipe)"
-          *ngIf="!this.addedRecipesModal.includes(recipe)"
+          *ngIf="!isRecipeAdded(recipe.id)"
         >Add</button>
-        <button class="btn btn-success btn-sm" disabled *ngIf="this.addedRecipesModal.includes(recipe)">Added</button>
+        <button class="btn btn-success btn-sm" disabled *ngIf="isRecipeAdded(recipe.id)">Added</button>
       </li>
     </ul>
     <div class="pagination-container">
