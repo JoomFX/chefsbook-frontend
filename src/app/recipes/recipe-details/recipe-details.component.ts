@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from 'src/app/common/interfaces/recipe';
+import { Recipe } from '../../../app/common/interfaces/recipe';
 import { RecipesDataService } from '../services/recipes-data.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,16 +12,17 @@ export class RecipeDetailsComponent implements OnInit {
   public recipe: Recipe;
 
   constructor(
-    private readonly recipeDataService: RecipesDataService,
+    private readonly recipesDataService: RecipesDataService,
     private readonly activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(
-      params => {
-        this.recipeDataService.getSingleRecipe(params.id).subscribe(
-          (recipe: Recipe) => this.recipe = recipe
-        );
+    const recipeId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.recipesDataService.getSingleRecipe(recipeId).subscribe(
+      (recipe: Recipe) => {
+        this.recipe = recipe;
+        console.log(this.recipe);
       }
     );
   }
