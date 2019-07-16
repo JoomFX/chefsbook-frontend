@@ -19,29 +19,12 @@
     </button>
   </div>
   <div class="modal-body add-contents">
-    <div class="filter-container">
-      <form id="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmitFilter()">
-        <div class="form-row align-items-center">
-          <div class="col-auto">
-            <input formControlName="search" class="form-control" name="search" type="search" placeholder="Search Products">
-          </div>
-          <div class="col-auto">
-            <select formControlName="foodGroup" class="form-control" (change)="onChangeFoodGroupSelect($event)">
-              <option selected value> -- Select FoodGroup -- </option>
-              <option *ngFor="let foodGroup of foodGroups" [value]="foodGroup.code">
-                {{ (foodGroup.description.length>30)? (foodGroup.description | slice:0:30)+'...':(foodGroup.description) }}
-              </option>
-            </select>
-          </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-secondary filter-button">Filter</button>
-          </div>
-          <div class="col-auto">
-            <button type="button" class="btn btn-secondary clear-button" (click)="onClearFilter()">Clear</button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <app-search-filter
+      [usedFor]="'products'"
+      [foodGroups]="foodGroups"
+      (submitFilter)="onSubmitFilterProduct($event)"
+      (clearFilter)="onSubmitFilterProduct($event)"
+    ></app-search-filter>
     <ul class="products">
       <li *ngFor="let product of this.products">{{product.description}}
         <button class="btn btn-success btn-sm"
@@ -53,12 +36,12 @@
     </ul>
     <div class="pagination-container">
       <app-pagination
-        [viewing]="viewing"
-        [through]="through"
-        [(page)]="page"
-        [pageSize]="pageSize"
-        [collectionSize]="collectionSize"
-        (newPage)="onPaginationChange($event)"
+        [viewing]="productsViewing"
+        [through]="productsThrough"
+        [(page)]="productsPage"
+        [pageSize]="productsPageSize"
+        [collectionSize]="productsCollectionSize"
+        (newPage)="onProductsPaginationChange($event)"
       ></app-pagination>
     </div>
   </div>
@@ -72,6 +55,30 @@
     </button>
   </div>
   <div class="modal-body add-contents">
-    Add Recipes
+    <app-search-filter
+      [usedFor]="'recipes'"
+      [foodGroups]="categories"
+      (submitFilter)="onSubmitFilterRecipe($event)"
+      (clearFilter)="onSubmitFilterRecipe($event)"
+    ></app-search-filter>
+    <ul class="products">
+      <li *ngFor="let recipe of this.recipes">{{recipe.title}}
+        <button class="btn btn-success btn-sm"
+          (click)="addRecipeToRecipe(recipe)"
+          *ngIf="!this.addedRecipesModal.includes(recipe)"
+        >Add</button>
+        <button class="btn btn-success btn-sm" disabled *ngIf="this.addedRecipesModal.includes(recipe)">Added</button>
+      </li>
+    </ul>
+    <div class="pagination-container">
+      <app-pagination
+        [viewing]="recipesViewing"
+        [through]="recipesThrough"
+        [(page)]="recipesPage"
+        [pageSize]="recipesPageSize"
+        [collectionSize]="recipesCollectionSize"
+        (newPage)="onRecipesPaginationChange($event)"
+      ></app-pagination>
+    </div>
   </div>
 </ng-template>

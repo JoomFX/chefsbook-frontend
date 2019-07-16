@@ -56,3 +56,36 @@
 .remove-icon:hover {
   color: #47db00;
 }
+
+.recipe-total-nutrition {
+  margin-top: 30px;
+}
+
+.nutrition-container {
+  display: inline-block;
+  text-align: center;
+}
+
+.recipe-total-nutrition-inner {
+  margin-top: 20px;
+  background-color: rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  padding: 25px;
+}
+
+.nutrition-container > span {
+  display: block;
+}
+
+.nutrition-value {
+  font-weight: bold;
+}
+
+.nutrition-name {
+  font-style: italic;
+}
+
+.recipe-total-details {
+  margin-top: 25px;
+}

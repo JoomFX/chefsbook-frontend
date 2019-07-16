@@ -21,10 +21,16 @@ export class RecipesDataService {
     );
   }
 
-  public getRecipes(page = 1, search = '', category = ''): Observable<Recipes> {
-    return this.http.get<Recipes>(
-      `http://localhost:3000/api/recipes?page=${page}&search=${search}&foodGroup=${category}`
-    );
+  public getRecipes(page = 1, search = '', category = '', filtered = ''): Observable<Recipes> {
+    if (filtered) {
+      return this.http.get<Recipes>(
+        `http://localhost:3000/api/recipes?page=${page}&search=${search}&category=${category}&filtered=yes`
+      );
+    } else {
+      return this.http.get<Recipes>(
+        `http://localhost:3000/api/recipes?page=${page}&search=${search}&category=${category}`
+      );
+    }
   }
 
   public getSingleRecipe(recipeId: string): Observable<Recipe> {

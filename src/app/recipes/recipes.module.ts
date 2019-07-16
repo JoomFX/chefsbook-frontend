@@ -9,6 +9,7 @@ import { AddContentsComponent } from './add-contents/add-contents.component';
 import { ItemNutritionComponent } from './item-nutrition/item-nutrition.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     ItemNutritionComponent,
     RecipeViewComponent,
     TimeAgoPipe,
+    SearchFilterComponent,
   ],
   imports: [
     SharedModule,
