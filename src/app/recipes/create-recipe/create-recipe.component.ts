@@ -55,6 +55,10 @@ export class CreateRecipeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.activatedRoute.data.subscribe(data => {
+      console.log(data);
+    });
+
     this.getProducts({ productPage: 1, searchProduct: '', foodGroup: 0 });
     this.getFoodGroups();
     this.getRecipes({ recipePage: 1, searchRecipe: '', category: '' });
