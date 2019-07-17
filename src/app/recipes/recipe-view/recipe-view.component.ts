@@ -11,6 +11,7 @@ export class RecipeViewComponent implements OnInit {
   @Input() public recipe: Recipe;
   @Input() public showDescription: boolean;
   @Input() public showEditDelete: boolean;
+  @Input() public showNutrition: boolean;
 
   constructor(
     private readonly modalService: NgbModal,

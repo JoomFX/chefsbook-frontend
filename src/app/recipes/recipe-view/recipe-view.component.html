@@ -21,7 +21,7 @@
       </span>
     </span>
 
-    <div class="recipe-nutrition">
+    <div class="recipe-nutrition" *ngIf="showNutrition">
       <div class="nutrition-container">
         <span class="nutrition-value">
           {{(recipe.nutrition.ENERC_KCAL.value).toFixed(0)}} {{recipe.nutrition.CHOCDF.unit}}

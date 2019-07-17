@@ -7,6 +7,7 @@
             [recipe]="recipe"
             [showDescription]="true"
             [showEditDelete]="true"
+            [showNutrition]="false"
           ></app-recipe-view>
         </div>
       </div>
@@ -16,16 +17,18 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <div class="recipe-products">
+            <div class="recipe-products white-box">
               <h4 class="section-title">Products</h4>
               <div class="products-container">
                 <div class="product d-flex justify-content-between" *ngFor="let product of recipe.products">
                   <div>{{product.product.description}}</div>
-                  <div>{{product.quantity}} {{product.unit}}</div>
+                  <div>
+                    <span class="quantity">{{product.quantity}}</span> <span class="units">{{product.unit}}</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="recipe-recipes">
+            <div class="recipe-recipes white-box">
               <h4 class="section-title">Recipes</h4>
               <div class="recipes-container">
                 <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
@@ -34,8 +37,9 @@
                 </div>
               </div>
             </div>
+            <div class="recipe-nutrition-container white-box">
               <div class="recipe-total-nutrition">
-                <h5>Total Recipe Nutrition</h5>
+                <h4 class="section-title">Total Recipe Nutrition</h4>
                 <div class="recipe-total-nutrition-inner">
                   <div class="row">
                     <div class="nutrition-container col-sm">
@@ -94,7 +98,8 @@
                     </ng-template>
                   </ngb-panel>
                 </ngb-accordion>
-              </div>           
+              </div>              
+            </div>           
           </div>
         </div>
       </div>
