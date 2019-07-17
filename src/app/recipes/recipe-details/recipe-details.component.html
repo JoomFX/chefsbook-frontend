@@ -20,10 +20,15 @@
             <div class="recipe-products white-box">
               <h4 class="section-title">Products</h4>
               <div class="products-container">
-                <div class="product d-flex justify-content-between" *ngFor="let product of recipe.products">
-                  <div>{{product.product.description}}</div>
-                  <div>
-                    <span class="quantity">{{product.quantity}}</span> <span class="units">{{product.unit}}</span>
+                <div class="alert alert-warning" role="alert" *ngIf="recipe.products.length === 0">
+                  There are no products added to this recipe yet!
+                </div>
+                <div class="products-container-inner" *ngIf="recipe.products.length > 0">
+                  <div class="product d-flex justify-content-between"*ngFor="let product of recipe.products">
+                    <div>{{product.product.description}}</div>
+                    <div>
+                      <span class="quantity">{{product.quantity}}</span> <span class="units">{{product.unit}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -31,9 +36,14 @@
             <div class="recipe-recipes white-box">
               <h4 class="section-title">Recipes</h4>
               <div class="recipes-container">
-                <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
-                  <!-- <div>{{recipe.title}}</div> -->
-                  <!-- <div>{{product.quantity}} {{product.unit}}</div> -->
+                <div class="alert alert-warning" role="alert" *ngIf="recipe.subrecipes.length === 0">
+                  There are no recipes added to this recipe yet!
+                </div>
+                <div class="recipe-container-inner" *ngIf="recipe.subrecipes.length === 0">
+                  <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
+                    <!-- <div>{{recipe.title}}</div> -->
+                    <!-- <div>{{product.quantity}} {{product.unit}}</div> -->
+                  </div>
                 </div>
               </div>
             </div>
