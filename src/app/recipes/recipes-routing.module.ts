@@ -5,6 +5,7 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { UpdateRecipeResolverService } from './services/update-recipe-resolver.service';
 import { ListRecipesResolverService } from './services/list-recipes-resolver.service';
+import { RecipesDetailsResolverService } from './services/recipes-details-resolver.service';
 
 const routes: Routes = [
   // { path: '', component: PostsComponent, resolve: {posts: PostsResolverService, count: PostCountResolverService} },
@@ -15,7 +16,11 @@ const routes: Routes = [
     resolve: {recipes: ListRecipesResolverService}
   },
   { path: 'create', component: CreateRecipeComponent },
-  { path: ':id', component: RecipeDetailsComponent },
+  {
+    path: ':id',
+    component: RecipeDetailsComponent,
+    resolve: {recipe: RecipesDetailsResolverService},
+  },
   {
     path: ':id/update',
     component: CreateRecipeComponent,

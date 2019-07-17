@@ -17,16 +17,9 @@ export class RecipeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const recipeId = this.activatedRoute.snapshot.paramMap.get('id');
-
-    this.recipesDataService.getSingleRecipe(recipeId).subscribe(
-      (recipe: Recipe) => {
-        this.recipe = recipe;
-        console.log(this.recipe.products);
-        console.log(this.recipe.subrecipes);
-      }
-    );
-    
+    this.activatedRoute.data.subscribe(data => {
+      this.recipe = data.recipe;
+    });
   }
 
 }
