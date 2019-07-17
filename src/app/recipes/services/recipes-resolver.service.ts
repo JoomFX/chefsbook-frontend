@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { Recipe } from '../../../app/common/interfaces/recipe';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Recipes } from '../../common/interfaces/recipes';
 import { RecipesDataService } from './recipes-data.service';
-import { NotificatorService } from '../../../app/core/services/notificator.service';
+import { NotificatorService } from '../../core/services/notificator.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesDetailsResolverService implements Resolve<Recipe | {recipe: Recipe}> {
+export class RecipesResolverService implements Resolve<Recipes | {recipes: Recipes}> {
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -20,12 +20,11 @@ export class RecipesDetailsResolverService implements Resolve<Recipe | {recipe: 
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ) {
-    const recipeId = route.paramMap.get('id');
-    return this.recipesDataService.getSingleRecipe(recipeId)
+    return this.recipesDataService.getRecipes()
       .pipe(catchError(
         res => {
           this.notificator.error(res.error.error);
-          return of({recipe: null});
+          return of({recipes: null});
         }
       ));
   }
