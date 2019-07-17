@@ -12,3 +12,29 @@
       </div>
     </div>
   </section>
+  <section id="recipe-data">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="recipe-products">
+              <h4 class="section-title">Products</h4>
+              <div class="products-container">
+                <div class="product d-flex justify-content-between" *ngFor="let product of recipe.products">
+                  <div>{{product.product.description}}</div>
+                  <div>{{product.quantity}} {{product.unit}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-recipes">
+              <h4 class="section-title">Recipes</h4>
+              <div class="recipes-container">
+                <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
+                  <!-- <div>{{recipe.title}}</div> -->
+                  <!-- <div>{{product.quantity}} {{product.unit}}</div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

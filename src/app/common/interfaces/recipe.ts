@@ -9,6 +9,7 @@ export interface Recipe {
   category: Category;
   products: Ingredient[];
   recipes: Recipe[];
+  subrecipes?: Recipe[];
   nutrition: Nutrition;
   user: string;
   userID: string;

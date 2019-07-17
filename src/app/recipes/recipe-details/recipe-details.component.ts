@@ -22,9 +22,11 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipesDataService.getSingleRecipe(recipeId).subscribe(
       (recipe: Recipe) => {
         this.recipe = recipe;
-        console.log(this.recipe);
+        console.log(this.recipe.products);
+        console.log(this.recipe.subrecipes);
       }
     );
+    
   }
 
 }
