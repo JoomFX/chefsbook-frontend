@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../common/interfaces/recipe';
 import { RecipesDataService } from './services/recipes-data.service';
 import { Recipes } from '../common/interfaces/recipes';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipes',
@@ -9,17 +10,19 @@ import { Recipes } from '../common/interfaces/recipes';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  public recipes: Recipe[] = [];
+  public recipes: Recipe[];
+  public productsCollectionSize: number;
 
   constructor(
     private readonly recipeDataService: RecipesDataService,
+    private readonly activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.recipeDataService.getRecipes().subscribe(
-      (recipes: Recipes) => this.recipes = recipes.recipes
-    );
-    console.log(this.recipes);
+    this.activatedRoute.data.subscribe(data => {
+      this.recipes = data.recipes.recipes;
+      this.productsCollectionSize = data.recipes.count;
+    });
   }
 
   public showRecipes(): void {
