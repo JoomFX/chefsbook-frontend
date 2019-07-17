@@ -4,10 +4,16 @@ import { RecipesComponent } from './recipes.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { UpdateRecipeResolverService } from './services/update-recipe-resolver.service';
+import { ListRecipesResolverService } from './services/list-recipes-resolver.service';
 
 const routes: Routes = [
   // { path: '', component: PostsComponent, resolve: {posts: PostsResolverService, count: PostCountResolverService} },
-  { path: '', component: RecipesComponent },
+  // { path: '', component: RecipesComponent },
+  {
+    path: '',
+    component: RecipesComponent,
+    resolve: {recipes: ListRecipesResolverService}
+  },
   { path: 'create', component: CreateRecipeComponent },
   { path: ':id', component: RecipeDetailsComponent },
   {
