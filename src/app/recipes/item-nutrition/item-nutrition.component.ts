@@ -21,9 +21,11 @@ export class ItemNutritionComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     if (this.usedFor === 'total') {
-      this.itemNutrition = Object.entries(this.item);
+      const unfilteredNutrition = Object.entries(this.item);
+      this.itemNutrition = unfilteredNutrition.filter((item) => item[0] !== 'id' && item[0] !== 'isDeleted');
     } else {
-      this.itemNutrition = Object.entries(this.item.nutrition);
+      const unfilteredNutrition = Object.entries(this.item.nutrition);
+      this.itemNutrition = unfilteredNutrition.filter((item) => item[0] !== 'id' && item[0] !== 'isDeleted');
     }
   }
 

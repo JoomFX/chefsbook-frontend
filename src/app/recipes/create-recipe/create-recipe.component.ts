@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
 import { RecipesDataService } from '../services/recipes-data.service';
 import { Product } from '../../../app/common/interfaces/product';
@@ -22,6 +22,9 @@ import { Recipes } from '../../../app/common/interfaces/recipes';
   styleUrls: ['./create-recipe.component.css']
 })
 export class CreateRecipeComponent implements OnInit {
+  public usedFor: string;
+  public updateRecipe;
+
   public createRecipeForm: FormGroup;
   public productsList: FormArray;
   public recipesList: FormArray;
@@ -48,6 +51,7 @@ export class CreateRecipeComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly notificator: NotificatorService,
+    private readonly activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -91,6 +95,39 @@ export class CreateRecipeComponent implements OnInit {
       FAMS: { description: 'Fatty acids, total monounsaturated', unit: 'g', value: 0 },
       FAPU: { description: 'Fatty acids, total polyunsaturated', unit: 'g', value: 0 },
     };
+
+    this.activatedRoute.data.subscribe(data => {
+      if (data.recipe) {
+        this.updateRecipe = data.recipe;
+        this.usedFor = 'update';
+
+        this.createRecipeForm.controls.title.setValue(this.updateRecipe.title, { onlySelf: true });
+        this.createRecipeForm.controls.description.setValue(this.updateRecipe.description, { onlySelf: true });
+        this.createRecipeForm.controls.category.setValue(this.updateRecipe.category.name, { onlySelf: true });
+
+        this.recipeProducts = this.updateRecipe.products.map((product) => product.product);
+        this.updateRecipe.products.map((product: any, index) => {
+          this.addProductFormGroup();
+          this.getProductFormGroup(index).controls.amount.setValue(product.quantity, { onlySelf: true });
+          this.getProductFormGroup(index).controls.measure.setValue(product.unit, { onlySelf: true });
+        });
+
+        // this.recipeRecipes = this.updateRecipe.subrecipes.map((recipe) => {
+        //   return this.recipesDataService.getSingleRecipe(recipe.id).subscribe();
+        // });
+        // this.updateRecipe.products.map((product: any, index) => {
+        //   this.addProductFormGroup();
+        //   this.getProductFormGroup(index).controls.amount.setValue(product.quantity, { onlySelf: true });
+        //   this.getProductFormGroup(index).controls.measure.setValue(product.unit, { onlySelf: true });
+        // });
+
+        this.totalRecipeNutrition = this.updateRecipe.nutrition;
+
+        console.log(this.updateRecipe);
+      } else {
+        this.usedFor = 'create';
+      }
+    });
   }
 
   public getProducts(event): void {
@@ -229,7 +266,7 @@ export class CreateRecipeComponent implements OnInit {
       const nutrition: Nutrition = cloneDeep(product.nutrition);
 
       for (const key in nutrition) {
-        if (nutrition.hasOwnProperty(key)) {
+        if (nutrition.hasOwnProperty(key) && (key !== 'id') && (key !== 'isDeleted')) {
           nutrition[key].value = Number((nutrition[key].value * coefficient).toFixed(2));
         }
       }
@@ -248,7 +285,7 @@ export class CreateRecipeComponent implements OnInit {
       const nutrition: Nutrition = cloneDeep(recipe.nutrition);
 
       for (const key in nutrition) {
-        if (nutrition.hasOwnProperty(key)) {
+        if (nutrition.hasOwnProperty(key) && (key !== 'id') && (key !== 'isDeleted')) {
           nutrition[key].value = Number((nutrition[key].value * quantity).toFixed(2));
         }
       }

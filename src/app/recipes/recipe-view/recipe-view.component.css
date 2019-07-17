@@ -34,7 +34,7 @@
   color: #28a745;
 }
 
-.recipe-author {
+.recipe-category {
   margin-right: 25px;
 }
 
@@ -66,4 +66,42 @@
 
 .nutrition-name {
   font-style: italic;
+}
+
+.edit-delete-container {
+  margin-left: 25px;
+}
+
+@media (max-width: 575.98px) {
+  .edit-delete-container {
+    margin-left: 0;
+    display: block;
+  }
+}
+
+.edit-icon, .delete-icon {
+  margin-right: 6px;
+  font-size: 90%;
+}
+
+.edit-item {
+  margin-right: 25px;
+}
+
+.edit-item, .delete-item {
+  color: #a4a4a4;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.edit-item:hover, .delete-item:hover {
+  color: #47db00;
+}
+
+.delete-button, .update-button {
+  margin-right: 10px;
+}
+
+.delete-confirmation-text {
+  margin-bottom: 25px;
 }

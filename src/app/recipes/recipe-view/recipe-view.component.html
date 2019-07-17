@@ -4,7 +4,7 @@
   </a>
   <div class="recipe-description" *ngIf="showDescription">{{recipe.description}}</div>
   <div class="recipe-details">
-    <span class="recipe-author">
+    <span class="recipe-category">
       <!-- <a class="recipe-category-link" [routerLink]="['/categories', null]"> -->
       <a class="recipe-category-link" href="#">
         <span class="category-icon far fa-folder-open"></span>{{recipe.category.name}}</a>
@@ -12,6 +12,15 @@
     <span class="recipe-created" ngbTooltip="{{recipe.created | date:'medium'}}">
         <i class="date-icon far fa-calendar-alt"></i>{{recipe.created | timeAgo}}
     </span>
+    <span class="edit-delete-container" *ngIf="showEditDelete">
+      <span class="edit-item" [routerLink]="['/recipes', recipe.id, 'update']">
+        <span class="edit-icon far fa-edit"></span>Edit
+      </span>
+      <span class="delete-item" (click)="open(deletePost)">
+        <span class="delete-icon far fa-trash-alt"></span>Delete
+      </span>
+    </span>
+
     <div class="recipe-nutrition">
       <div class="nutrition-container">
         <span class="nutrition-value">
@@ -39,3 +48,19 @@
       </div>
     </div>
 </div>
+
+<ng-template #deletePost let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Recipe</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <p class="delete-confirmation-text">Are you sure you want to delete this recipe?</p>
+      <button type="submit" class="btn btn-primary delete-button" (click)="deleteRecipe()" (click)="modal.close()">Delete Recipe</button>
+      <button type="submit" class="btn btn-primary" (click)="modal.close()">Cancel</button>
+    </form>
+  </div>
+</ng-template>
