@@ -147,12 +147,19 @@
                   [nutrition]="totalRecipeNutrition"
                 ></app-total-nutrition>
               </div>
-              <div class="create-button-container">
+              <div class="create-update-button-container">
                 <button type="submit" class="btn btn-primary"
+                  *ngIf="usedFor === 'create'"
                   [disabled]="this.createRecipeForm.invalid || 
                   (this.recipeProducts.length === 0 && this.recipeRecipes.length === 0)"
                   (click)="createRecipe()"
                 >Create Recipe</button>
+                <button type="submit" class="btn btn-primary"
+                  *ngIf="usedFor === 'update'"
+                  [disabled]="this.createRecipeForm.invalid || 
+                  (this.recipeProducts.length === 0 && this.recipeRecipes.length === 0)"
+                  (click)="updateRecipe()"
+                >Update Recipe</button>                
               </div>
             </form>
           </div>

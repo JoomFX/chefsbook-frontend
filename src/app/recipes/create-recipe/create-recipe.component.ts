@@ -23,7 +23,7 @@ import { Recipes } from '../../../app/common/interfaces/recipes';
 })
 export class CreateRecipeComponent implements OnInit {
   public usedFor: string;
-  public updateRecipe: Recipe;
+  public recipeToUpdate: Recipe;
 
   public createRecipeForm: FormGroup;
   public productsList: FormArray;
@@ -109,26 +109,26 @@ export class CreateRecipeComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(data => {
       if (data.recipe) {
-        this.updateRecipe = data.recipe;
+        this.recipeToUpdate = data.recipe;
 
-        this.createRecipeForm.controls.title.setValue(this.updateRecipe.title, { onlySelf: true });
-        this.createRecipeForm.controls.description.setValue(this.updateRecipe.description, { onlySelf: true });
-        this.createRecipeForm.controls.category.setValue(this.updateRecipe.category.name, { onlySelf: true });
+        this.createRecipeForm.controls.title.setValue(this.recipeToUpdate.title, { onlySelf: true });
+        this.createRecipeForm.controls.description.setValue(this.recipeToUpdate.description, { onlySelf: true });
+        this.createRecipeForm.controls.category.setValue(this.recipeToUpdate.category.name, { onlySelf: true });
 
-        this.recipeProducts = this.updateRecipe.products.map((product) => product.product);
-        this.updateRecipe.products.map((product: any, index) => {
+        this.recipeProducts = this.recipeToUpdate.products.map((product) => product.product);
+        this.recipeToUpdate.products.map((product: any, index) => {
           this.addProductFormGroup();
           this.getProductFormGroup(index).controls.amount.setValue(product.quantity, { onlySelf: true });
           this.getProductFormGroup(index).controls.measure.setValue(product.unit, { onlySelf: true });
         });
 
-        this.recipeRecipes = this.updateRecipe.subrecipes.map((recipe) => recipe.recipe);
-        this.updateRecipe.subrecipes.map((recipe: any, index) => {
+        this.recipeRecipes = this.recipeToUpdate.subrecipes.map((recipe) => recipe.recipe);
+        this.recipeToUpdate.subrecipes.map((recipe: any, index) => {
           this.addRecipeFormGroup();
           this.getRecipeFormGroup(index).controls.amount.setValue(recipe.quantity, { onlySelf: true });
         });
 
-        this.totalRecipeNutrition = this.updateRecipe.nutrition;
+        this.totalRecipeNutrition = this.recipeToUpdate.nutrition;
       }
     });
   }
@@ -456,5 +456,8 @@ export class CreateRecipeComponent implements OnInit {
         this.notificator.error('Recipe creation unsuccessful!');
       }
     );
+  }
+
+  public updateRecipe(recipe: Recipe): void {
   }
 }
