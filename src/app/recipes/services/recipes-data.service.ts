@@ -45,7 +45,7 @@ export class RecipesDataService {
 
   }
 
-  public deleteRecipe(recipeid: string): Observable<any> | void {
-
+  public deleteRecipe(recipeId: string): Observable<Recipe> {
+    return this.http.delete<Recipe>(`http://localhost:3000/api/recipes/${recipeId}`);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../../app/common/interfaces/recipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,6 +13,8 @@ export class RecipeViewComponent implements OnInit {
   @Input() public showEditDelete: boolean;
   @Input() public showNutrition: boolean;
 
+  @Output() public recipeToDelete = new EventEmitter<string>();
+
   constructor(
     private readonly modalService: NgbModal,
   ) { }
@@ -25,7 +27,7 @@ export class RecipeViewComponent implements OnInit {
   }
 
   public deleteRecipe(): void {
-    console.log('Recipe Deleted');
+    this.recipeToDelete.emit(this.recipe.id);
   }
 
 }

@@ -1,7 +1,8 @@
+import { RecipesDataService } from './../services/recipes-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../../app/common/interfaces/recipe';
-import { RecipesDataService } from '../services/recipes-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificatorService } from '../../../app/core/services/notificator.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -13,13 +14,25 @@ export class RecipeDetailsComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly recipesDataService: RecipesDataService,
+    private readonly notificator: NotificatorService,
+    private readonly router: Router,
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(data => {
-      this.recipe = data.recipe;
-      console.log(this.recipe);
-    });
+    this.activatedRoute.data.subscribe(data => this.recipe = data.recipe);
+  }
+
+  public deleteRecipe(recipeId: string): void {
+    this.recipesDataService.deleteRecipe(recipeId).subscribe(
+      (recipe: Recipe) => {
+        this.router.navigate(['/recipes']);
+        this.notificator.success('Recipe deteled successfully!');
+      },
+      (error) => {
+        this.notificator.error('Recipe delete failed!');
+      }
+    );
   }
 
 }
