@@ -122,18 +122,13 @@ export class CreateRecipeComponent implements OnInit {
           this.getProductFormGroup(index).controls.measure.setValue(product.unit, { onlySelf: true });
         });
 
-        // this.recipeRecipes = this.updateRecipe.subrecipes.map((recipe) => {
-        //   return this.recipesDataService.getSingleRecipe(recipe.id).subscribe();
-        // });
-        // this.updateRecipe.products.map((product: any, index) => {
-        //   this.addProductFormGroup();
-        //   this.getProductFormGroup(index).controls.amount.setValue(product.quantity, { onlySelf: true });
-        //   this.getProductFormGroup(index).controls.measure.setValue(product.unit, { onlySelf: true });
-        // });
+        this.recipeRecipes = this.updateRecipe.subrecipes.map((recipe) => recipe.recipe);
+        this.updateRecipe.subrecipes.map((recipe: any, index) => {
+          this.addRecipeFormGroup();
+          this.getRecipeFormGroup(index).controls.amount.setValue(recipe.quantity, { onlySelf: true });
+        });
 
         this.totalRecipeNutrition = this.updateRecipe.nutrition;
-
-        console.log(this.updateRecipe);
       }
     });
   }

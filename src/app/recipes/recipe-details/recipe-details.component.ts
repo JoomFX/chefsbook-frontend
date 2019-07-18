@@ -18,6 +18,7 @@ export class RecipeDetailsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.data.subscribe(data => {
       this.recipe = data.recipe;
+      console.log(this.recipe);
     });
   }
 
