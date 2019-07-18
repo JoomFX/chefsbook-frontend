@@ -39,10 +39,10 @@
                 <div class="alert alert-warning" role="alert" *ngIf="recipe.subrecipes.length === 0">
                   There are no recipes added to this recipe yet!
                 </div>
-                <div class="recipe-container-inner" *ngIf="recipe.subrecipes.length === 0">
+                <div class="recipe-container-inner" *ngIf="recipe.subrecipes.length > 0">
                   <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
-                    <!-- <div>{{recipe.title}}</div> -->
-                    <!-- <div>{{product.quantity}} {{product.unit}}</div> -->
+                    <div>{{recipe.recipe.title}}</div>
+                    <div>{{recipe.quantity}}</div>
                   </div>
                 </div>
               </div>

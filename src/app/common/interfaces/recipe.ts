@@ -11,6 +11,7 @@ export interface Recipe {
   recipes: Recipe[];
   recipe?: Recipe;
   subrecipes?: Recipe[];
+  quantity?: number;
   nutrition: Nutrition;
   user: string;
   userID: string;
