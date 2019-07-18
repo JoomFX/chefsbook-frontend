@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
 import { RecipesDataService } from '../services/recipes-data.service';
 import { Product } from '../../../app/common/interfaces/product';
-import { CreateRecipe } from './../../common/interfaces/create-recipe';
 import { Recipe } from './../../common/interfaces/recipe';
 import { Ingredient } from './../../common/interfaces/ingredient';
 import { Category } from './../../common/interfaces/category';
@@ -15,6 +14,7 @@ import { ProductsDataService } from '../services/products-data.service';
 import { FoodGroup } from '../../../app/common/interfaces/food-groups';
 import { Products } from '../../../app/common/interfaces/products';
 import { Recipes } from '../../../app/common/interfaces/recipes';
+import { CreateUpdateRecipe } from '../../common/interfaces/create-update-recipe';
 
 @Component({
   selector: 'app-create-recipe',
@@ -417,6 +417,36 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   public createRecipe(): void {
+    const recipeToCreate = this.prepareRecipe();
+
+    this.recipesDataService.createRecipe(recipeToCreate).subscribe(
+      (recipe: Recipe) => {
+        this.router.navigate(['/recipes']);
+        this.notificator.success('Recipe successfully created!');
+      },
+      (error) => {
+        this.notificator.error('Recipe creation unsuccessful!');
+      }
+    );
+  }
+
+  public updateRecipe(): void {
+    const recipeToUpdate = this.prepareRecipe();
+
+    this.recipesDataService.updateRecipe(recipeToUpdate).subscribe(
+      (recipe: Recipe) => {
+        this.router.navigate(['/recipes']);
+        this.notificator.success('Recipe successfully updated!');
+      },
+      (error) => {
+        this.notificator.error('Recipe update unsuccessful!');
+      }
+    );
+  }
+
+  private prepareRecipe(): CreateUpdateRecipe {
+    let recipeToReturn: CreateUpdateRecipe;
+
     const ingredients: Ingredient[] = [];
     this.recipeProducts.map((product: Product, index) => {
       const ingredient: Ingredient = {
@@ -438,26 +468,27 @@ export class CreateRecipeComponent implements OnInit {
       subrecipes.push(subrecipe);
     });
 
-    const recipe: CreateRecipe = {
-      title: this.createRecipeForm.value.title,
-      description: this.createRecipeForm.value.description,
-      category: this.createRecipeForm.value.category,
-      products: ingredients,
-      recipes: subrecipes,
-      nutrition: this.totalRecipeNutrition,
-    };
+    if (this.usedFor === 'create') {
+      recipeToReturn = {
+        title: this.createRecipeForm.value.title,
+        description: this.createRecipeForm.value.description,
+        category: this.createRecipeForm.value.category,
+        products: ingredients,
+        recipes: subrecipes,
+        nutrition: this.totalRecipeNutrition,
+      };
+    } else if (this.usedFor === 'update') {
+      recipeToReturn = {
+        id: this.recipeToUpdate.id,
+        title: this.createRecipeForm.value.title,
+        description: this.createRecipeForm.value.description,
+        category: this.createRecipeForm.value.category,
+        products: ingredients,
+        recipes: subrecipes,
+        nutrition: this.totalRecipeNutrition,
+      };
+    }
 
-    this.recipesDataService.createRecipe(recipe).subscribe(
-      (recipe: Recipe) => {
-        this.router.navigate(['/recipes']);
-        this.notificator.success('Recipe successfully created!');
-      },
-      (error) => {
-        this.notificator.error('Recipe creation unsuccessful!');
-      }
-    );
-  }
-
-  public updateRecipe(recipe: Recipe): void {
+    return recipeToReturn;
   }
 }

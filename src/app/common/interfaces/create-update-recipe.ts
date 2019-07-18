@@ -3,7 +3,8 @@ import { Nutrition } from './nutrition';
 import { Category } from './category';
 import { Ingredient } from './ingredient';
 
-export interface CreateRecipe {
+export interface CreateUpdateRecipe {
+  id?: string;
   title: string;
   description: string;
   category: Category;

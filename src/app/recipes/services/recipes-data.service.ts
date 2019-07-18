@@ -1,10 +1,10 @@
-import { CreateRecipe } from './../../common/interfaces/create-recipe';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from './../../common/interfaces/category';
 import { Recipe } from '../../common/interfaces/recipe';
 import { Recipes } from '../../common/interfaces/recipes';
+import { CreateUpdateRecipe } from '../../common/interfaces/create-update-recipe';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +37,12 @@ export class RecipesDataService {
     return this.http.get<Recipe>(`http://localhost:3000/api/recipes/${recipeId}`);
   }
 
-  public createRecipe(recipe: CreateRecipe): Observable<Recipe> {
+  public createRecipe(recipe: CreateUpdateRecipe): Observable<Recipe> {
     return this.http.post<Recipe>(`http://localhost:3000/api/recipes`, recipe);
   }
 
-  public updateRecipe(recipe): Observable<any> | void {
-
+  public updateRecipe(recipe: CreateUpdateRecipe): Observable<Recipe> {
+    return this.http.put<Recipe>(`http://localhost:3000/api/recipes/${recipe.id}`, recipe);
   }
 
   public deleteRecipe(recipeId: string): Observable<Recipe> {
