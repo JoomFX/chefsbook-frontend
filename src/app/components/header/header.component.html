@@ -56,7 +56,7 @@
         </ul>
     
         <div class="username-logout">
-          <a class="username-link">
+          <a class="username-link"  [routerLink]="['/users', userId]">
             <span class="username"><span class="user-icon far fa-user"></span>{{loggedInUser}}</span>
           </a>
           <button class="btn btn-outline-success" type="button" (click)="onLogout()">Logout</button>

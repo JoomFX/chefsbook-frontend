@@ -15,6 +15,10 @@ export class AuthService {
     this.loggedUser()
   );
 
+  private userIdSubject$ = new BehaviorSubject<string>(
+    this.loggedUserId()
+  );
+
   constructor(
     private readonly http: HttpClient,
     private readonly storage: StorageService,
@@ -24,8 +28,16 @@ export class AuthService {
     return this.storage.get('username');
   }
 
+  public loggedUserId(): string | null {
+    return this.storage.get('userId');
+  }
+
   public get user$(): Observable<string | null> {
     return this.userSubject$.asObservable();
+  }
+
+  public get userId$(): Observable<string | null> {
+    return this.userIdSubject$.asObservable();
   }
 
   public register(user: UserRegister): Observable<any> {
@@ -39,6 +51,7 @@ export class AuthService {
           this.userSubject$.next(res.user.username);
           this.storage.set('token', res.token);
           this.storage.set('username', res.user.username);
+          this.storage.set('userId', res.user.id);
         })
       );
   }

@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   public isNavbarCollapsed = true;
-  public userId: string;
 
   @Input() public loggedInUser: string;
+  @Input() public userId: string;
   @Input() public isLogged: boolean;
 
   constructor(

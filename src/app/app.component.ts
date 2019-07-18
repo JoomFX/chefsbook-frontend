@@ -9,7 +9,9 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public loggedInSubscription: Subscription;
+  public loggedInUserIdSubscription: Subscription;
   public loggedInUser: string;
+  public userId: string;
   public isLogged: boolean;
 
   constructor(
@@ -23,10 +25,15 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isLogged = !!data;
       }
     );
+
+    this.loggedInUserIdSubscription = this.authService.userId$.subscribe(
+      userId => this.userId = userId
+    );
   }
 
   ngOnDestroy() {
     this.loggedInSubscription.unsubscribe();
+    this.loggedInUserIdSubscription.unsubscribe();
   }
 
 }
