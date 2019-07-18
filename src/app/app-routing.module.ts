@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule', canActivate: [AuthGuard] },
-  // { path: 'users', loadChildren: './users/users.module#UsersModule', canActivate: [AuthGuard] },
+  { path: 'users', loadChildren: './users/users.module#UsersModule', canActivate: [AuthGuard] },
 
   { path: '**', component: NotFoundComponent },
 ];

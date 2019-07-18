@@ -9,7 +9,6 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public loggedInSubscription: Subscription;
-  public loggedInUserIdSubscription: Subscription;
   public loggedInUser: string;
   public userId: string;
   public isLogged: boolean;
@@ -21,19 +20,19 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loggedInSubscription = this.authService.user$.subscribe(
       data => {
-        this.loggedInUser = data;
-        this.isLogged = !!data;
+        if (data !== null && data.username !== null) {
+          this.loggedInUser = data.username;
+          this.userId = data.id;
+          this.isLogged = true;
+        } else {
+          this.isLogged = false;
+        }
       }
-    );
-
-    this.loggedInUserIdSubscription = this.authService.userId$.subscribe(
-      userId => this.userId = userId
     );
   }
 
   ngOnDestroy() {
     this.loggedInSubscription.unsubscribe();
-    this.loggedInUserIdSubscription.unsubscribe();
   }
 
 }

@@ -6,7 +6,8 @@ const routes: Routes = [
     {
       path: '',
       component: UserDetailsComponent,
-      // REDIRECT !!!
+      redirectTo: '/recipes',
+      pathMatch: 'full',
     },
     {
       path: ':id', component: UserDetailsComponent,

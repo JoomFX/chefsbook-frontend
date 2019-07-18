@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoggedInSubscription = this.authService.user$.subscribe(
       (data) => {
-        this.isLoggedIn = !!data;
+        if (data !== null && data.username !== null) {
+          this.isLoggedIn = true;
 
-        if (data) {
           this.router.navigate(['/recipes']);
         }
       }

@@ -11,13 +11,10 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private userSubject$ = new BehaviorSubject<string>(
-    this.loggedUser()
-  );
-
-  private userIdSubject$ = new BehaviorSubject<string>(
-    this.loggedUserId()
-  );
+  private userSubject$ = new BehaviorSubject<{username: string, id: string} | null>({
+    username: this.loggedUser(),
+    id: this.loggedUserId(),
+  });
 
   constructor(
     private readonly http: HttpClient,
@@ -32,12 +29,8 @@ export class AuthService {
     return this.storage.get('userId');
   }
 
-  public get user$(): Observable<string | null> {
+  public get user$(): Observable<{username: string, id: string} | null> {
     return this.userSubject$.asObservable();
-  }
-
-  public get userId$(): Observable<string | null> {
-    return this.userIdSubject$.asObservable();
   }
 
   public register(user: UserRegister): Observable<any> {
@@ -48,7 +41,7 @@ export class AuthService {
     return this.http.post('http://localhost:3000/api/auth/session', user)
       .pipe(
         tap(res => {
-          this.userSubject$.next(res.user.username);
+          this.userSubject$.next({username: res.user.username, id: res.user.id});
           this.storage.set('token', res.token);
           this.storage.set('username', res.user.username);
           this.storage.set('userId', res.user.id);
@@ -63,6 +56,7 @@ export class AuthService {
           this.userSubject$.next(null);
           this.storage.remove('token');
           this.storage.remove('username');
+          this.storage.remove('userId');
         })
       );
   }
