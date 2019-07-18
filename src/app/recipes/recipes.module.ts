@@ -10,6 +10,7 @@ import { ItemNutritionComponent } from './item-nutrition/item-nutrition.componen
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { TotalNutritionComponent } from './total-nutrition/total-nutrition.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
     RecipeViewComponent,
     TimeAgoPipe,
     SearchFilterComponent,
+    TotalNutritionComponent,
   ],
   imports: [
     SharedModule,

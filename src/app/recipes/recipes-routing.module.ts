@@ -3,37 +3,45 @@ import { Routes, RouterModule } from '@angular/router';
 import { RecipesComponent } from './recipes.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
-import { UpdateRecipeResolverService } from './services/update-recipe-resolver.service';
-import { ListRecipesResolverService } from './services/list-recipes-resolver.service';
-import { RecipesDetailsResolverService } from './services/recipes-details-resolver.service';
-import { CreateRecipeResolverService } from './services/create-recipe-resolver.service';
+import { RecipesResolverService } from './services/recipes-resolver.service';
+import { SingleRecipeResolverService } from './services/single-recipe-resolver.service';
+import { ProductsResolverService } from './services/products-resolver.service';
+import { FoodgroupsResolverService } from './services/foodgroups-resolver.service';
+import { CategoriesResolverService } from './services/categories-resolver.service';
 
 const routes: Routes = [
-  // { path: '', component: PostsComponent, resolve: {posts: PostsResolverService, count: PostCountResolverService} },
-  // { path: '', component: RecipesComponent },
   {
     path: '',
     component: RecipesComponent,
-    resolve: {recipes: ListRecipesResolverService}
+    resolve: {recipes: RecipesResolverService},
   },
-  // { path: 'create', component: CreateRecipeComponent },
   {
     path: 'create',
     component: CreateRecipeComponent,
-    resolve: {data: CreateRecipeResolverService}
+    resolve: {
+      products: ProductsResolverService,
+      foodGroups: FoodgroupsResolverService,
+      recipes: RecipesResolverService,
+      categories: CategoriesResolverService,
+    },
   },
   {
     path: ':id',
     component: RecipeDetailsComponent,
-    resolve: {recipe: RecipesDetailsResolverService},
+    resolve: {recipe: SingleRecipeResolverService},
   },
   {
     path: ':id/update',
     component: CreateRecipeComponent,
     pathMatch: 'full',
-    resolve: {recipe: UpdateRecipeResolverService}
+    resolve: {
+      products: ProductsResolverService,
+      foodGroups: FoodgroupsResolverService,
+      recipes: RecipesResolverService,
+      categories: CategoriesResolverService,
+      recipe: SingleRecipeResolverService,
+    },
   },
-  // { path: ':id', component: PostDetailsComponent, resolve: {post: PostDetailsResolverService} },
 ];
 
 @NgModule({

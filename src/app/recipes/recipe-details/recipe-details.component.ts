@@ -12,7 +12,6 @@ export class RecipeDetailsComponent implements OnInit {
   public recipe: Recipe;
 
   constructor(
-    private readonly recipesDataService: RecipesDataService,
     private readonly activatedRoute: ActivatedRoute,
   ) { }
 

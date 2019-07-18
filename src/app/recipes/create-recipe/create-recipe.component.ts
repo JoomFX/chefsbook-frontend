@@ -23,16 +23,16 @@ import { Recipes } from '../../../app/common/interfaces/recipes';
 })
 export class CreateRecipeComponent implements OnInit {
   public usedFor: string;
-  public updateRecipe;
+  public updateRecipe: Recipe;
 
   public createRecipeForm: FormGroup;
   public productsList: FormArray;
   public recipesList: FormArray;
 
-  public products: Product[] = [];
-  public foodGroups: FoodGroup[] = [];
-  public recipes: Recipe[] = [];
-  public categories: Category[] = [];
+  public products: Product[];
+  public foodGroups: FoodGroup[];
+  public recipes: Recipe[];
+  public categories: Category[];
 
   public recipeProducts: Product[] = [];
   public recipeRecipes: Recipe[] = [];
@@ -56,13 +56,20 @@ export class CreateRecipeComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(data => {
-      console.log(data);
-    });
+      this.products = data.products.products;
+      this.foodGroups = data.foodGroups;
+      this.recipes = data.recipes.recipes;
+      this.categories = data.categories;
 
-    this.getProducts({ productPage: 1, searchProduct: '', foodGroup: 0 });
-    this.getFoodGroups();
-    this.getRecipes({ recipePage: 1, searchRecipe: '', category: '' });
-    this.getCategories();
+      this.productsCollectionSize = data.products.count;
+      this.recipesCollectionSize = data.recipes.count;
+
+      if (data.recipe) {
+        this.usedFor = 'update';
+      } else {
+        this.usedFor = 'create';
+      }
+    });
 
     this.createRecipeForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -103,7 +110,6 @@ export class CreateRecipeComponent implements OnInit {
     this.activatedRoute.data.subscribe(data => {
       if (data.recipe) {
         this.updateRecipe = data.recipe;
-        this.usedFor = 'update';
 
         this.createRecipeForm.controls.title.setValue(this.updateRecipe.title, { onlySelf: true });
         this.createRecipeForm.controls.description.setValue(this.updateRecipe.description, { onlySelf: true });
@@ -128,8 +134,6 @@ export class CreateRecipeComponent implements OnInit {
         this.totalRecipeNutrition = this.updateRecipe.nutrition;
 
         console.log(this.updateRecipe);
-      } else {
-        this.usedFor = 'create';
       }
     });
   }
