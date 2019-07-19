@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { SingleUserResolverService } from './services/single-user-resolver.service';
 
 const routes: Routes = [
     {
@@ -11,7 +12,7 @@ const routes: Routes = [
     },
     {
       path: ':id', component: UserDetailsComponent,
-      // resolve: { user: UserProfileResolverService },
+      resolve: { user: SingleUserResolverService },
     },
   ];
 

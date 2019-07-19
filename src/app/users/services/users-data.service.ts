@@ -12,7 +12,7 @@ export class UsersDataService {
     private readonly http: HttpClient,
   ) { }
 
-  public getSingleUser(username: string): Observable<User> {
-    return this.http.get<User>(`http://localhost:3000/api/users/${username}`);
+  public getSingleUser(userId: string): Observable<User> {
+    return this.http.get<User>(`http://localhost:3000/api/users/${userId}`);
   }
 }
