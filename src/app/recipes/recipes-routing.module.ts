@@ -8,6 +8,7 @@ import { SingleRecipeResolverService } from './services/single-recipe-resolver.s
 import { ProductsResolverService } from './services/products-resolver.service';
 import { FoodgroupsResolverService } from './services/foodgroups-resolver.service';
 import { CategoriesResolverService } from './services/categories-resolver.service';
+import { FilteredRecipesResolverService } from './services/filtered-recipes-resolver.service';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
     resolve: {
       products: ProductsResolverService,
       foodGroups: FoodgroupsResolverService,
-      recipes: RecipesResolverService,
+      recipes: FilteredRecipesResolverService,
       categories: CategoriesResolverService,
     },
   },
@@ -37,7 +38,7 @@ const routes: Routes = [
     resolve: {
       products: ProductsResolverService,
       foodGroups: FoodgroupsResolverService,
-      recipes: RecipesResolverService,
+      recipes: FilteredRecipesResolverService,
       categories: CategoriesResolverService,
       recipe: SingleRecipeResolverService,
     },
