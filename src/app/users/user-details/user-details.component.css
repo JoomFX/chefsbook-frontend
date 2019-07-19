@@ -1,0 +1,65 @@
+.profile-fb-container {
+  display: flex;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.profile-left, .profile-right {
+  width: 50%;
+  padding: 25px;
+}
+
+@media (max-width: 575.98px) {
+  .profile-fb-container {
+    display: block;
+  }
+
+  .profile-left, .profile-right {
+    width: 100%;
+  }
+
+  .profile-left {
+    border-right: none;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .profile-image img {
+    width: 100px;
+  }
+}
+
+.profile-left {
+  border-right: 1px solid #eeeeee;
+  flex: 1;
+  text-align: center;
+}
+
+.profile-right {
+  flex: 5;
+}
+
+.profile-username, .profile-user-role {
+  margin-top: 15px;
+}
+
+.profile-user-role > span {
+  padding: 8px 30px;
+  background: #e9e9e9;
+  border-radius: 35px;
+  color: #7d7d7d;
+  font-size: 13px;
+}
+
+.profile-details {
+  font-size: 13px;
+}
+
+.separator {
+  margin: 0 15px;
+}
+
+.profile-more-about {
+  margin-top: 35px;
+}

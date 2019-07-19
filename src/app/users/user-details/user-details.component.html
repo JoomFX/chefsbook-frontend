@@ -1,3 +1,44 @@
-<p>
-  user-details works!
-</p>
+<app-top-buttons [showSearch]="false"></app-top-buttons>
+<section id="user-profile">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="profile-fb-container">
+          <div class="profile-left">
+            <div class="profile-image">
+              <img src="../../../assets/user-image.jpg" class="card-img-top" alt="User Image">
+            </div>
+            <div class="profile-username">
+              <!-- <h4>{{user.username}}</h4> -->
+              <h4>gosho</h4>
+            </div>
+            <div class="profile-user-role">
+              <span>Chef</span>
+            </div>
+          </div>
+          <div class="profile-right">
+            <div class="profile-name">
+              <!-- <h3>{{user.firstName}} {{user.lastName}}</h3> -->
+             <h3>Gosho Toshov</h3>
+            </div>
+            <div class="profile-details">
+              <!-- <span class="registered">Registered on - {{user.createdOn | date}}</span> -->
+              <span class="registered"> registered on - 12/02/19</span>
+              <span class="separator">/</span>
+              <!-- <span class="email">Email - {{user.email}}</span> -->
+              <span class="email">Email - Toshoviq@gmail.com</span>
+            </div>
+            <div class="profile-more-about">
+              <h5>More About Me:</h5>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+              fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
