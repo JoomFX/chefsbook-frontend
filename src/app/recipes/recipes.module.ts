@@ -11,6 +11,7 @@ import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { TotalNutritionComponent } from './total-nutrition/total-nutrition.component';
+import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TotalNutritionComponent } from './total-nutrition/total-nutrition.compo
     SharedModule,
     RouterModule,
     RecipesRoutingModule,
+    AngularStickyThingsModule,
   ]
 })
 export class RecipesModule { }

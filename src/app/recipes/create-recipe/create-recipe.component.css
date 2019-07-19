@@ -2,6 +2,15 @@
   margin-top: 60px;
 }
 
+.add-buttons-container {
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+.add-buttons-container.is-sticky {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
 .create-recipe-container {
   background-color: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);

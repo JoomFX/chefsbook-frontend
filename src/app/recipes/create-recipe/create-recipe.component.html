@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="create-recipe-container">
-          <div class="add-buttons-container">
+          <div #spacer></div>
+          <div class="add-buttons-container" stickyThing [spacer]="spacer">
             <app-add-contents
               [products]="products"
               [foodGroups]="foodGroups"
