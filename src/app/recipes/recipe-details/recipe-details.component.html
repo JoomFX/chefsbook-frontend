@@ -1,60 +1,97 @@
 <app-top-buttons [showSearch]="false"></app-top-buttons>
 <section id="single-recipe">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <app-recipe-view
-            [recipe]="recipe"
-            [showDescription]="true"
-            [showEditDelete]="true"
-            [showNutrition]="false"
-            (recipeToDelete)="deleteRecipe($event)"
-          ></app-recipe-view>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <app-recipe-view
+          [recipe]="recipe"
+          [showDescription]="true"
+          [showEditDelete]="true"
+          [showNutrition]="false"
+          (recipeToDelete)="deleteRecipe($event)"
+        ></app-recipe-view>
       </div>
     </div>
-  </section>
-  <section id="recipe-data">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="recipe-products white-box">
-              <h4 class="section-title">Products</h4>
-              <div class="products-container">
-                <div class="alert alert-warning" role="alert" *ngIf="recipe.products.length === 0">
-                  There are no products added to this recipe yet!
+  </div>
+</section>
+<section id="recipe-data">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="recipe-products white-box">
+          <h4 class="section-title">Products</h4>
+          <div class="products-container">
+            <div class="alert alert-warning" role="alert" *ngIf="recipe.products.length === 0">
+              There are no products added to this recipe yet!
+            </div>
+            <div class="products-container-inner" *ngIf="recipe.products.length > 0">
+              <div class="product d-flex justify-content-between"
+                *ngFor="let product of recipe.products"
+                (click)="open(productNutrition)"
+              >
+                <div>{{product.product.description}}</div>
+                <div>
+                  <span class="quantity">{{product.quantity}}</span> <span class="units">{{product.unit}}</span>
                 </div>
-                <div class="products-container-inner" *ngIf="recipe.products.length > 0">
-                  <div class="product d-flex justify-content-between"*ngFor="let product of recipe.products">
-                    <div>{{product.product.description}}</div>
-                    <div>
-                      <span class="quantity">{{product.quantity}}</span> <span class="units">{{product.unit}}</span>
-                    </div>
+                <ng-template #productNutrition let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Product Nutrition</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
-                </div>
+                  <div class="modal-body">
+                    <app-item-nutrition
+                      [usedFor]="'products'"
+                      [item]="product.product"
+                      [amount]="product.quantity"
+                      [measure]="product.unit"
+                    ></app-item-nutrition>
+                  </div>
+                </ng-template>
               </div>
             </div>
-            <div class="recipe-recipes white-box">
-              <h4 class="section-title">Recipes</h4>
-              <div class="recipes-container">
-                <div class="alert alert-warning" role="alert" *ngIf="recipe.subrecipes.length === 0">
-                  There are no recipes added to this recipe yet!
-                </div>
-                <div class="recipe-container-inner" *ngIf="recipe.subrecipes.length > 0">
-                  <div class="recipe d-flex justify-content-between" *ngFor="let recipe of recipe.subrecipes">
-                    <div>{{recipe.recipe.title}}</div>
-                    <div> <span class="quantity">{{recipe.quantity}}</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="recipe-nutrition-container white-box">
-              <app-total-nutrition
-                [usedFor]="'details'"
-                [nutrition]="recipe.nutrition"
-              ></app-total-nutrition>
-            </div>           
           </div>
         </div>
+        <div class="recipe-recipes white-box">
+          <h4 class="section-title">Recipes</h4>
+          <div class="recipes-container">
+            <div class="alert alert-warning" role="alert" *ngIf="recipe.subrecipes.length === 0">
+              There are no recipes added to this recipe yet!
+            </div>
+            <div class="recipe-container-inner" *ngIf="recipe.subrecipes.length > 0">
+              <div class="recipe d-flex justify-content-between"
+                *ngFor="let recipe of recipe.subrecipes"
+                (click)="open(recipeNutrition)"
+              >
+                <div>{{recipe.recipe.title}}</div>
+                <div> <span class="quantity">{{recipe.quantity}}</span></div>
+                <ng-template #recipeNutrition let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Recipe Nutrition</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <app-item-nutrition
+                      [usedFor]="'recipes'"
+                      [item]="recipe.recipe"
+                      [amount]="recipe.quantity"
+                    ></app-item-nutrition>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recipe-nutrition-container white-box">
+          <app-total-nutrition
+            [usedFor]="'details'"
+            [nutrition]="recipe.nutrition"
+          ></app-total-nutrition>
+        </div>           
       </div>
-    </section>
+    </div>
+  </div>
+</section>

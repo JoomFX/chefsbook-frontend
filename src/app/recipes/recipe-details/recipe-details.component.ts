@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../../app/common/interfaces/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-recipe-details',
@@ -17,10 +18,15 @@ export class RecipeDetailsComponent implements OnInit {
     private readonly recipesDataService: RecipesDataService,
     private readonly notificator: NotificatorService,
     private readonly router: Router,
+    private readonly modalService: NgbModal,
   ) { }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(data => this.recipe = data.recipe);
+  }
+
+  public open(modalWindow): void {
+    this.modalService.open(modalWindow, { size: 'lg' });
   }
 
   public deleteRecipe(recipeId: string): void {
