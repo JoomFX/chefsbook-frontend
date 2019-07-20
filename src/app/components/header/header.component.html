@@ -1,7 +1,7 @@
 <header>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light" *ngIf="!isLogged">
-      <a class="navbar-brand" [routerLink]="['/home']">
+      <a class="navbar-brand" (click)="onLogoClick()">
         <img class="logo" src="../../../assets/logo.png" alt="Recipes Logo">
       </a>
 
@@ -34,7 +34,7 @@
 
 
     <nav class="navbar navbar-expand-lg navbar-light" *ngIf="isLogged">
-      <a class="navbar-brand" [routerLink]="['/recipes']">
+      <a class="navbar-brand" (click)="onLogoClick()">
         <img class="logo" src="../../../assets/logo.png" alt="Recipes Logo">
       </a>
 

@@ -36,4 +36,12 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+
+  public onLogoClick(): void {
+    if (this.isLogged === false) {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/recipes']);
+    }
+  }
 }

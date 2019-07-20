@@ -10,6 +10,7 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class RecipesResolverService implements Resolve<Recipes | {recipes: Recipes}> {
+  private page: number;
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -20,7 +21,13 @@ export class RecipesResolverService implements Resolve<Recipes | {recipes: Recip
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ) {
-    return this.recipesDataService.getRecipes()
+    if (route.queryParams.page) {
+      this.page = route.queryParams.page;
+    } else {
+      this.page = 1;
+    }
+
+    return this.recipesDataService.getRecipes(this.page)
       .pipe(catchError(
         res => {
           this.notificator.error(res.error.error);
