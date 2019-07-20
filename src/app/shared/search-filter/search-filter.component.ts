@@ -1,14 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FoodGroup } from './../../common/interfaces/food-groups';
-import { Category } from './../../common/interfaces/category';
+import { FoodGroup } from '../../common/interfaces/food-groups';
+import { Category } from '../../common/interfaces/category';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../../../app/core/services/search.service';
 
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
   styleUrls: ['./search-filter.component.css']
 })
-export class SearchFilterComponent implements OnInit {
+export class SearchFilterComponent implements OnInit, OnDestroy {
+  public searchSubscription: Subscription;
   public filterForm: FormGroup;
   public searchPlaceholder: string;
   public selectPlaceholder: string;
@@ -20,6 +23,7 @@ export class SearchFilterComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
+    private readonly searchService: SearchService,
   ) { }
 
   ngOnInit() {
@@ -31,9 +35,29 @@ export class SearchFilterComponent implements OnInit {
     if (this.usedFor === 'products') {
       this.searchPlaceholder = 'Products';
       this.selectPlaceholder = 'FoodGroup';
-    } else if (this.usedFor === 'recipes') {
+    } else if (this.usedFor === 'recipes' || this.usedFor === 'list-recipes') {
       this.searchPlaceholder = 'Recipes';
       this.selectPlaceholder = 'Category';
+    }
+
+    if (this.usedFor === 'list-recipes') {
+      this.searchSubscription = this.searchService.search$.subscribe(
+        (search) => {
+          if (search === 'clearTheSearch') {
+            this.filterForm.controls.search.setValue('', { onlySelf: true });
+            this.filterForm.controls.foodGroup.setValue('', { onlySelf: true });
+          } else {
+            this.filterForm.controls.search.setValue(search.search, { onlySelf: true });
+            this.filterForm.controls.foodGroup.setValue(search.foodGroup, { onlySelf: true });
+          }
+        }
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.usedFor === 'list-recipes') {
+      this.searchSubscription.unsubscribe();
     }
   }
 
@@ -54,7 +78,7 @@ export class SearchFilterComponent implements OnInit {
 
     if (this.usedFor === 'products') {
       foodGroup = 0;
-    } else if (this.usedFor === 'recipes') {
+    } else if (this.usedFor === 'recipes' || this.usedFor === 'list-recipes') {
       foodGroup = '';
     }
 

@@ -16,7 +16,7 @@
           </option>
         </select>
         <select formControlName="foodGroup" class="form-control"
-          *ngIf="usedFor === 'recipes'"
+          *ngIf="usedFor === 'recipes' || usedFor === 'list-recipes'"
           (change)="onChangeFoodGroupSelect($event)">
           <option selected value> -- Select {{selectPlaceholder}} -- </option>
           <option

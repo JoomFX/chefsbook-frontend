@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from '../common/interfaces/recipe';
 import { RecipesDataService } from './services/recipes-data.service';
 import { Recipes } from '../common/interfaces/recipes';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../core/services/search.service';
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent implements OnInit, OnDestroy {
+  public searchSubscription: Subscription;
   public recipes: Recipe[];
 
   // Recipes Pagination
@@ -29,6 +32,7 @@ export class RecipesComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly location: Location,
+    private readonly searchService: SearchService,
   ) { }
 
   ngOnInit() {
@@ -45,14 +49,38 @@ export class RecipesComponent implements OnInit {
       }
     );
 
+    this.searchSubscription = this.searchService.search$.subscribe(
+      (search) => {
+        if (search === 'clearTheSearch') {
+          this.search = '';
+          this.category = '';
+        } else {
+          this.search = search.search;
+          this.category = search.foodGroup;
+        }
+
+        this.page = 1;
+
+        this.getRecipes('callback');
+      }
+    );
+
     this.calculateViewing();
   }
 
-  public getRecipes(): void {
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
+  }
+
+  public getRecipes(callback = null): void {
     this.recipesDataService.getRecipes(this.page, this.search, this.category).subscribe(
       (recipes: Recipes) => {
         this.recipes = recipes.recipes;
         this.collectionSize = recipes.count;
+
+        if (callback !== null) {
+          this.calculateViewing();
+        }
       }
     );
   }

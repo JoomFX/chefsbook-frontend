@@ -14,7 +14,10 @@ const routes: Routes = [
   {
     path: '',
     component: RecipesComponent,
-    resolve: {recipes: RecipesResolverService},
+    resolve: {
+      recipes: RecipesResolverService,
+      categories: CategoriesResolverService,
+    },
   },
   {
     path: 'create',

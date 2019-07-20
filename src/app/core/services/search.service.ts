@@ -9,11 +9,11 @@ export class SearchService {
 
   constructor() { }
 
-  public get search$(): Observable<string> {
+  public get search$(): Observable<any> {
     return this.searchSubject$.asObservable();
   }
 
-  public emitSearch(search: string): void {
+  public emitSearch(search): void {
     this.searchSubject$.next(search);
   }
 }

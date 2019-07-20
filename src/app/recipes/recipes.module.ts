@@ -9,7 +9,6 @@ import { AddContentsComponent } from './add-contents/add-contents.component';
 import { ItemNutritionComponent } from './item-nutrition/item-nutrition.component';
 import { RecipeViewComponent } from './recipe-view/recipe-view.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
-import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { TotalNutritionComponent } from './total-nutrition/total-nutrition.component';
 import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
 
@@ -22,7 +21,6 @@ import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
     ItemNutritionComponent,
     RecipeViewComponent,
     TimeAgoPipe,
-    SearchFilterComponent,
     TotalNutritionComponent,
   ],
   imports: [

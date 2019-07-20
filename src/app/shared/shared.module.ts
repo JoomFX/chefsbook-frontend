@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TopButtonsComponent } from './top-buttons/top-buttons.component';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @NgModule({
   declarations: [
     SearchBoxComponent,
     PaginationComponent,
     TopButtonsComponent,
+    SearchFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { TopButtonsComponent } from './top-buttons/top-buttons.component';
     SearchBoxComponent,
     PaginationComponent,
     TopButtonsComponent,
+    SearchFilterComponent,
   ],
 })
 export class SharedModule { }
