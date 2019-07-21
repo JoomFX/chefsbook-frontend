@@ -54,6 +54,7 @@ export class SearchBoxComponent implements OnInit {
 
   public clearSearch(): void {
     this.searchService.emitSearch('clearTheSearch');
+    window.scrollTo(0, 0);
   }
 
 }

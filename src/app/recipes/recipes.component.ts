@@ -101,8 +101,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
 
   public changeURLonPagination(): void {
     const page = this.page;
-    const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {page}})
-      .toString();
+    const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {page}}).toString();
 
     this.location.go(url);
 

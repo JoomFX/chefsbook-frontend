@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../../app/common/interfaces/recipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SearchService } from '../../../app/core/services/search.service';
 
 @Component({
   selector: 'app-recipe-view',
@@ -17,6 +18,7 @@ export class RecipeViewComponent implements OnInit {
 
   constructor(
     private readonly modalService: NgbModal,
+    private readonly searchService: SearchService,
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,17 @@ export class RecipeViewComponent implements OnInit {
 
   public deleteRecipe(): void {
     this.recipeToDelete.emit(this.recipe.id);
+  }
+
+  public onCategoryClick(category: string): void {
+    const search = {
+      search: '',
+      foodGroup: category,
+    };
+
+    this.searchService.emitSearch(search);
+
+    window.scrollTo(0, 0);
   }
 
 }

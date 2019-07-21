@@ -5,7 +5,8 @@
   <div class="recipe-description" *ngIf="showDescription">{{recipe.description}}</div>
   <div class="recipe-details">
     <span class="recipe-category">
-      <a class="recipe-category-link" [routerLink]="['/categories', (recipe.category.name).toLocaleLowerCase()]">
+      <!-- <a class="recipe-category-link" [routerLink]="['/categories', (recipe.category.name).toLocaleLowerCase()]"> -->
+      <a class="recipe-category-link" (click)="onCategoryClick(recipe.category.name)">
         <span class="category-icon far fa-folder-open"></span>{{recipe.category.name}}</a>
     </span>
     <span class="recipe-created" ngbTooltip="{{recipe.created | date:'medium'}}">
