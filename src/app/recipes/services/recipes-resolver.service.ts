@@ -27,7 +27,16 @@ export class RecipesResolverService implements Resolve<Recipes | {recipes: Recip
       this.page = 1;
     }
 
-    return this.recipesDataService.getRecipes(this.page)
+    let category: string;
+    const routeId = route.paramMap.get('id');
+
+    if (routeId !== null) {
+      category = routeId;
+    } else {
+      category = '';
+    }
+
+    return this.recipesDataService.getRecipes(this.page, '', category)
       .pipe(catchError(
         res => {
           this.notificator.error(res.error.error);
