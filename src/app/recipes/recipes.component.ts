@@ -69,6 +69,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.searchService.emitSearch('clearTheSearch');
     this.searchSubscription.unsubscribe();
   }
 
