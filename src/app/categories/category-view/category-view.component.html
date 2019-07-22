@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card-image-container" (click)="onCategoryClick(category.name)">
+    <img src="../../../assets/category-image.png" class="card-img-top" alt="Category Image">
+  </div>
+  <div class="card-body">
+    <a class="category-title-link" (click)="onCategoryClick(category.name)">
+      <h4 class="card-title">{{category.name}}</h4>
+    </a>
+  </div>
+</div>

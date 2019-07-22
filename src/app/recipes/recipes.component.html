@@ -5,6 +5,7 @@
       <div class="col-sm-12">
         <app-recipe-view
           *ngFor="let recipe of recipes"
+          [usedFor]="'list-recipes'"
           [recipe]="recipe"
           [showDescription]="false"
           [showEditDelete]="false"

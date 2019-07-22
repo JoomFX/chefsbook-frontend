@@ -1,0 +1,10 @@
+<app-top-buttons [showSearch]="false"></app-top-buttons>
+<section id="categories">
+  <div class="container">
+    <div class="row custom-row">
+      <div class="col-md-4" *ngFor="let category of categories">
+        <app-category-view [category]="category"></app-category-view>
+      </div>
+    </div>
+  </div>
+</section>

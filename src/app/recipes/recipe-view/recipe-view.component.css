@@ -30,8 +30,13 @@
   font-size: 0.9rem;
 }
 
-.recipe-category-link {
+.recipe-category .recipe-category-link {
   color: #28a745;
+  cursor: pointer;
+}
+
+.recipe-category .recipe-category-link:hover {
+  text-decoration: underline;
 }
 
 .recipe-category {

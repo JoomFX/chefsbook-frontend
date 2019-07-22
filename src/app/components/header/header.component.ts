@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from './../../core/services/auth.service';
 import { NotificatorService } from '../../../app/core/services/notificator.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SearchService } from '../../../app/core/services/search.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,9 @@ export class HeaderComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly notificator: NotificatorService,
     private readonly router: Router,
+    private readonly searchService: SearchService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly location: Location,
   ) { }
 
   ngOnInit() { }
@@ -41,7 +46,12 @@ export class HeaderComponent implements OnInit {
     if (this.isLogged === false) {
       this.router.navigate(['/home']);
     } else {
+      const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {}}).toString();
+
+      this.location.go(url);
       this.router.navigate(['/recipes']);
     }
+
+    this.searchService.emitSearch('clearTheSearch');
   }
 }
