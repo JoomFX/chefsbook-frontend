@@ -48,10 +48,25 @@ export class SearchBoxComponent implements OnInit {
   public onSubmitFilterRecipe(event): void {
     if (event.search === '' && event.foodGroup === '') {
       this.clearSearch();
-    } else {
+    } else if (event.search === '' && event.foodGroup !== '') {
       const category = event.foodGroup.toLowerCase();
 
       const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {category}}).toString();
+      this.location.go(url);
+
+      this.searchService.emitSearch(event);
+    } else if (event.search !== '' && event.foodGroup === '') {
+      const search = event.search.toLowerCase();
+
+      const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {search}}).toString();
+      this.location.go(url);
+
+      this.searchService.emitSearch(event);
+    } else if (event.search !== '' && event.foodGroup !== '') {
+      const search = event.search.toLowerCase();
+      const category = event.foodGroup.toLowerCase();
+
+      const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {search, category}}).toString();
       this.location.go(url);
 
       this.searchService.emitSearch(event);

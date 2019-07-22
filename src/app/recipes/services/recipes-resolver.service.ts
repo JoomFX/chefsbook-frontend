@@ -11,6 +11,8 @@ import { of } from 'rxjs';
 })
 export class RecipesResolverService implements Resolve<Recipes | {recipes: Recipes}> {
   private page: number;
+  private search: string;
+  private category: string;
 
   constructor(
     private readonly recipesDataService: RecipesDataService,
@@ -27,16 +29,19 @@ export class RecipesResolverService implements Resolve<Recipes | {recipes: Recip
       this.page = 1;
     }
 
-    let category: string;
-    const routeId = route.paramMap.get('id');
-
-    if (routeId !== null) {
-      category = routeId;
+    if (route.queryParams.search) {
+      this.search = route.queryParams.search;
     } else {
-      category = '';
+      this.search = '';
     }
 
-    return this.recipesDataService.getRecipes(this.page, '', category)
+    if (route.queryParams.category) {
+      this.category = route.queryParams.category;
+    } else {
+      this.category = '';
+    }
+
+    return this.recipesDataService.getRecipes(this.page, this.search, this.category)
       .pipe(catchError(
         res => {
           this.notificator.error(res.error.error);
