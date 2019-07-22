@@ -28,9 +28,6 @@ import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
     RouterModule,
     RecipesRoutingModule,
     AngularStickyThingsModule,
-  ],
-  exports: [
-    RecipeViewComponent,
-  ],
+  ]
 })
 export class RecipesModule { }

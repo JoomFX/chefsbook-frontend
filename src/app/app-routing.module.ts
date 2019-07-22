@@ -14,6 +14,7 @@ const routes: Routes = [
 
   { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule', canActivate: [AuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule', canActivate: [AuthGuard] },
+  { path: 'categories', loadChildren: './categories/categories.module#CategoriesModule', canActivate: [AuthGuard] },
 
   { path: '**', component: NotFoundComponent },
 ];
