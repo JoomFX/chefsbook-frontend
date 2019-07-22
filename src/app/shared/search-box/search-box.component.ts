@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../../app/core/services/search.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from '../../../app/common/interfaces/category';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-search-box',
@@ -20,6 +21,8 @@ export class SearchBoxComponent implements OnInit {
     private readonly modalService: NgbModal,
     private readonly activatedRoute: ActivatedRoute,
     private readonly searchService: SearchService,
+    private readonly router: Router,
+    private readonly location: Location,
   ) { }
 
   ngOnInit() {
@@ -46,6 +49,11 @@ export class SearchBoxComponent implements OnInit {
     if (event.search === '' && event.foodGroup === '') {
       this.clearSearch();
     } else {
+      const category = event.foodGroup.toLowerCase();
+
+      const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {category}}).toString();
+      this.location.go(url);
+
       this.searchService.emitSearch(event);
     }
 
@@ -53,6 +61,9 @@ export class SearchBoxComponent implements OnInit {
   }
 
   public clearSearch(): void {
+    const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {}}).toString();
+    this.location.go(url);
+
     this.searchService.emitSearch('clearTheSearch');
     window.scrollTo(0, 0);
   }
