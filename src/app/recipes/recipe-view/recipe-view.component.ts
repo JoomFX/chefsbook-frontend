@@ -46,16 +46,16 @@ export class RecipeViewComponent implements OnInit {
 
     const category = cat.toLowerCase();
 
-    const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {category}}).toString();
-    this.location.go(url);
+    if (this.usedFor === 'single-recipe') {
+      this.router.navigate(['/recipes'], {queryParams: {category}});
+    } else if (this.usedFor === 'list-recipes') {
+      const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {category}}).toString();
+      this.location.go(url);
+    }
 
     this.searchService.emitSearch(search);
 
     window.scrollTo(0, 0);
-
-    if (this.usedFor === 'single-recipe') {
-      this.router.navigate(['/recipes'], {queryParams: {category}});
-    }
   }
 
 }
