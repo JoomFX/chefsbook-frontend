@@ -54,8 +54,6 @@ export class RecipeViewComponent implements OnInit {
     }
 
     this.searchService.emitSearch(search);
-
-    window.scrollTo(0, 0);
   }
 
 }
