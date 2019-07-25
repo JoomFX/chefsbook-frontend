@@ -80,7 +80,6 @@ export class SearchBoxComponent implements OnInit {
     this.location.go(url);
 
     this.searchService.emitSearch('clearTheSearch');
-    window.scrollTo(0, 0);
   }
 
 }

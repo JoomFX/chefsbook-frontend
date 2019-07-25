@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit {
             this.notificator.error('Login failed!');
           }
         );
-        this.router.navigate(['/recipes']);
       },
       () => {
         this.notificator.error('Registration failed!');

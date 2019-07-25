@@ -82,6 +82,10 @@ export class RecipesComponent implements OnInit, OnDestroy {
         if (callback !== null) {
           this.calculateViewing();
         }
+
+        // We need this for better UX
+        // when using the pagination.
+        window.scrollTo(0, 0);
       }
     );
   }
@@ -104,8 +108,6 @@ export class RecipesComponent implements OnInit, OnDestroy {
     const url = this.router.createUrlTree([], {relativeTo: this.activatedRoute, queryParams: {page}}).toString();
 
     this.location.go(url);
-
-    window.scrollTo(0, 0);
   }
 
 }
