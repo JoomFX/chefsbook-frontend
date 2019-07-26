@@ -21,7 +21,12 @@
             ></app-add-contents>
           </div>
           <div class="create-recipe-form">
-            <h4 class="create-recipe-header"><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>
+            <h4 class="create-recipe-header"
+            *ngIf="usedFor === 'create'"
+            ><span class="create-recipe-icon fas fa-pencil-alt"></span> Create Recipe</h4>
+            <h4 class="create-recipe-header"
+            *ngIf="usedFor === 'update'"
+            ><span class="create-recipe-icon fas fa-pencil-alt"></span> Update Recipe</h4>
             <form [formGroup]="createRecipeForm">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Recipe Title" formControlName="title"
