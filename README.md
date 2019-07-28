@@ -1,7 +1,7 @@
 # RECIPE NUTRITION APP
 
 <p align="center">
-  <a href="https://angular.io/" target="blank"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width="320" alt="Angular Logo" /></a>
+  <a href="https://angular.io/" target="_blank"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width="280" alt="Angular Logo" /></a>
 </p>
 
   <p align="center">Angular is a TypeScript-based open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations.</p>
@@ -60,16 +60,26 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 # Documentation
 
-The App handles user authentication so you can register and then login:
+The App handles user authentication so you can register and then login (click the images to enlarge):
 
-<a href="./screenshots/home.png" target="blank">
-  <img src="./screenshots/home.png" width="320" alt="Image" />
+<a href="./screenshots/home.png" target="_blank">
+  <img src="./screenshots/home.png" width="280" alt="Image" />
 </a>
 
-<a href="./screenshots/login.png" target="blank">
-  <img src="./screenshots/login.png" width="320" alt="Image" />
+<a href="./screenshots/login.png" target="_blank">
+  <img src="./screenshots/login.png" width="280" alt="Image" />
 </a>
 
-<a href="./screenshots/register.png" target="blank">
-  <img src="./screenshots/register.png" width="320" alt="Image" />
+<a href="./screenshots/register.png" target="_blank">
+  <img src="./screenshots/register.png" width="280" alt="Image" />
+</a>
+
+After login, you will be forwarded to the List Recipes view where you can see all your recipes. In this view you can search the recipes by name and/or filter them by category:
+
+<a href="./screenshots/list-recipes.png" target="_blank">
+  <img src="./screenshots/list-recipes.png" width="280" alt="Image" />
+</a>
+
+<a href="./screenshots/list-recipes-search.png" target="_blank">
+  <img src="./screenshots/list-recipes-search.png" width="280" alt="Image" />
 </a>
